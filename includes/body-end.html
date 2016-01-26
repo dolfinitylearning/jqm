@@ -1,0 +1,37 @@
+        </div> <!-- /col -->
+      </div> <!-- /row -->
+      <footer>
+        <hr>
+        <div style="float:left;padding-right: 10px;">
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/"><img 
+              alt="Creative Commons License" style="border-width:0" 
+              src="https://i.creativecommons.org/l/by/3.0/us/88x31.png"></a>
+        </div>
+        <div>
+          This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution 3.0 United States License</a>.<br>
+          This site is for educational purposes. Don't believe anything
+            here, including this sentence.
+        </div>
+      </footer>      
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>');</script>
+    <script src="/libs/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/libs/bootstrap-3.3.6/docs/assets/js/ie10-viewport-bug-workaround.js"></script>    
+    <script>
+      $(document).ready(function () {
+        //Highlight active page. 
+        //See http://stackoverflow.com/questions/11533542/twitter-bootstrap-add-active-class-to-li
+        var url = window.location;
+        // Will only work if string in href matches with location
+        $('ul.nav a[href="' + url + '"]').parent().addClass('active');
+        // Will also work for relative and absolute hrefs
+        $('ul.nav a').filter(function () {
+          return this.href == url;
+        }).parent().addClass('active').parent().parent().addClass('active');
+      });
+    </script>

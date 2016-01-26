@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memory game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Memory game</h1>
+    <table>
+      <tr>
+        <td><img src="planetcute/Rock.png" alt="Tile"></td>
+        <td><img src="planetcute/CharacterPrincessGirl.png" alt="Tile"></td>
+        <td><img src="planetcute/EnemyBug.png" alt="Tile"></td>
+        <td><img src="planetcute/Key.png" alt="Tile"></td>
+      </tr>
+      <tr>
+        <td><img src="planetcute/Heart.png" alt="Tile"></td>
+        <td><img src="planetcute/Star.png" alt="Tile"></td>
+        <td><img src="planetcute/CharacterBoy.png" alt="Tile"></td>
+        <td><img src="planetcute/EnemyBug.png" alt="Tile"></td>
+      </tr>
+      <tr>
+        <td><img src="planetcute/Star.png" alt="Tile"></td>
+        <td><img src="planetcute/GemGreen.png" alt="Tile"></td>
+        <td><img src="planetcute/CharacterBoy.png" alt="Tile"></td>
+        <td><img src="planetcute/CharacterPrincessGirl.png" alt="Tile"></td>
+      </tr>
+      <tr>
+        <td><img src="planetcute/Rock.png" alt="Tile"></td>
+        <td><img src="planetcute/GemGreen.png" alt="Tile"></td>
+        <td><img src="planetcute/Heart.png" alt="Tile"></td>
+        <td><img src="planetcute/Key.png" alt="Tile"></td>
+      </tr>
+    </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+      var clickNumber = 0;
+      var firstImg;
+      var secondImg;
+      var clickedImg; //Temp var.
+      $(document).ready(function(){
+        $("td").click(function(){
+          //Which image was clicked?
+          clickedImg = $(this).find("img");
+          //Show it.
+          clickedImg.show();
+          //Which click is this?
+          clickNumber ++;
+          if (clickNumber == 1) {
+            //First click. Remember this as the first image clicked.
+            firstImg = clickedImg;
+          }
+          else if (clickNumber == 2) {
+            //Second click. Remember this as the sefond image clicked.
+            secondImg = clickedImg;
+            //Check to see if the images match.
+            if ( firstImg.attr("src") == secondImg.attr("src") ) {
+              alert("Match!");
+            }
+            else {
+              //No match.
+              alert("Sorry, no match.");
+              //Hide the images again.
+              firstImg.hide();
+              secondImg.hide();
+            }
+            //Reset click count.
+            clickNumber = 0;
+          }
+        });
+      });
+    </script>
+    
+  </body>
+</html>

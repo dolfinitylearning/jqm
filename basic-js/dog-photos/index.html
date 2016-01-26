@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dog photos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Dog photos</h1>
+    <p>Click a photo to find its breed.</p>
+    <p>
+      <img src="lab.jpg" alt="Lab">
+      &nbsp;&nbsp;
+      <img src="papillon.jpg" alt="Papillon">
+      &nbsp;&nbsp;
+      <img src="sheltie.jpg" alt="Sheltie">
+    </p>
+    <p>Breed: <span id="breed"></span></p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("img").click(function(){
+          $("#breed").html( $(this).attr("alt") );
+        });
+      });
+    </script>
+  </body>
+</html>

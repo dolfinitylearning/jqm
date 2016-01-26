@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="includes/navbar.html" -->
+    <!--#include virtual="includes/body-start.html" -->
+    <div class="page-header">
+      <h1>This site</h1>
+    </div>
+    <p>
+      You may be asking yourself:
+    </p>
+    <blockquote>
+      Self, how was this site made?
+    </blockquote>
+    <p>
+      OK, you aren't, but here it is, anyway.
+    </p>
+    
+    <h2>HTML/CSS framework</h2>
+    
+    <p>
+      It's <a href="http://getbootstrap.com/">Bootstrap</a>. Why Bootstrap? 
+      Two reasons.
+    </p>
+    <ul>
+      <li>It looks good. I <em>suck</em> at design. Better to let 
+      Bootstrap handle it.</li>
+      <li>It's responsive. Try it. Resize your browser window,
+      try it on a phone, whatevs. It works, without my having to do
+      very much.</li>
+    </ul>
+    <p>
+      Bootstrap takes some learning, but it's worth it. I don't know
+      what the best Bootstrap resources are. Ideas?
+    </p>
+    
+    <h2>Server-side includes</h2>
+    
+    <p>I wanted to have a bunch of pages. They should all look the same,
+    have the same navbar, etc. </p>
+    
+    <p>That navbar should be easy to change. If I want to add a new 
+    link, I'd like to be able to change one file, and have all the pages
+    on the site change. How to do that?</p>
+    
+    <p>An easy way is to use server-side includes. Needs no programming. </p>
+    
+    <p>Look at this page's URL. The extension is <code>.shtml</code>, not 
+      <code>.html</code>. When Apache gets a URL ending in <code>.shtml</code>,
+      it looks for special commands in the content. It executes the commands,
+      then sends the result to your browser.</p>
+    
+    <p>
+      The commands are written as HTML comments. Here's an HTML comment:
+    </p>
+    
+    <pre>&lt;!-- Hello! I'm a comment. --&gt;</pre>
+    
+    <p>
+      HTML comments don't show up on the page. People who write HTML
+      use comments to make notes to themselves. Here's an example:
+    </p>
+    
+    <!-- Remember to talk about server-side includes. -->
+    
+    <p>
+      See that comment? Well, of course not, it doesn't show up. It's in the
+      source, though. Ctrl+U will show it.
+    </p>
+    
+    <p>
+      Back to server-side includes (SSI). I made a directory (folder) called
+      <code>includes</code>. Then I took the HTML that makes the
+      navbar, and put it the file <code>navbar.html</code> in that 
+      directory. Here are the files on the site so far:
+    </p>
+    
+    <p>
+      <img src="files.png" alt="Files" class="img-responsive" >
+    </p>
+    <p>  
+      I can include the navbar HTML in any <code>.shtml</code>
+      page by typing:
+    </p>
+    
+    <pre>&lt;!--#include virtual="includes/navbar.html" --&gt;</pre>
+    
+    <p>
+      Apache replaces the directive with the contents of the file.
+    </p>
+    
+    <p>Here's the template I made for every page on this site:</p>
+    
+    <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;!--#include virtual=&quot;includes/head.html&quot; --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!--#include virtual=&quot;includes/navbar.html&quot; --&gt;
+    &lt;!--#include virtual=&quot;includes/body-start.html&quot; --&gt;
+    &lt;div class="page-header"&gt;
+      &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;p&gt;Content&lt;/p&gt;
+    &lt;!--#include virtual=&quot;includes/body-end.html&quot; --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+    
+    <p>
+      To make a new page, I copy the template, and add markup. If I want to 
+      change the navbar, I change the file <code>navbar.html</code>,
+      and every page on the site changes.
+    </p>
+    <p>
+      SSI is a (relatively) old technology, useful for simple sites
+      like this. It has problems. For example, I use root relative
+      or absolute links in the included files, rather than relative links.
+      (CoreDogs explains the difference.) This makes files harder to
+      move around within and between sites.
+    </p>
+    
+    <p>
+      Another problem is highlighting the current page in the 
+      menu. That is, if you look at the home page, the Home link
+      in the menu is highlighted. If you look at this page,
+      its menu link, and its parent, are highlighted.
+    </p>
+    
+    <p>
+      Normally, you do that by adding the class <code>active</code> to
+      the current page's link in the navbar HTML, like this:</p>
+    
+    <pre>&lt;li class="active"&gt;&lt;a href=&quot;/this-site.shtml&quot;&gt;This site&lt;/a&gt;&lt;/li&gt;</pre>
+    
+    <p>
+      That makes the navbar
+      code slightly different for each page. It won't work with SSI,
+      since we need the navbar code to be <em>exactly</em> the same 
+      for each page.
+    </p>
+    
+    <p>The solution was to use
+      <a href="http://stackoverflow.com/questions/11533542/twitter-bootstrap-add-active-class-to-li"
+         target="_blank">JavaScript code from Stack Overflow</a>. Stack Overflow
+      is the go-to place for coding questions. 
+    </p>
+      
+    <p>      
+      For larger projects, I use my fave CMS 
+      <a href="https://drupal.org" target="_blank">Drupal</a>.
+    </p>
+    
+    <!--#include virtual="includes/body-end.html" -->
+  </body>
+</html>

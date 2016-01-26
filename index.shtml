@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="jumbotron">
+        <h1>G'day!</h1>
+        <p>
+          This site is for Kieran Mathieson's mobile Web course. It's mainly exercises,
+          notes, plus some links to Good Things.
+        </p>
+    </div>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>

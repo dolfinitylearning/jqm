@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="includes/navbar.html" -->
+    <!--#include virtual="includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Links</h1>
+    </div>
+    <p>Got something to add? Let Kieran know.</p>
+    
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td>
+          <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a><br>
+          Responsive HTML/CSS framework used for this site.
+        </td>
+        <td>
+          <a href="http://getbootstrap.com/" target="_blank">http://getbootstrap.com/</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="http://coredogs.com/" target="_blank">CoreDogs</a><br>
+          Basic HTML/CSS/JS concepts and exercises.
+        </td>
+        <td>
+          <a href="http://coredogs.com/" target="_blank">http://coredogs.com/</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="http://sourceforge.net/projects/ditto-cp/" target="_blank">Ditto</a><br>
+          Windows clipboard manager.
+        </td>
+        <td>
+          <a href="http://sourceforge.net/projects/ditto-cp/" target="_blank">http://sourceforge.net/projects/ditto-cp/</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="http://netbeans.org/" target="_blank">NetBeans</a><br>
+          IDE. Get the PHP version. You'll need the java SDK as well.
+        </td>
+        <td>
+          <a href="http://netbeans.org/" target="_blank">http://netbeans.org/</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="http://winscp.net/eng/index.php" target="_blank">WinSCP</a><br>
+          Windows FTP client.
+        </td>
+        <td>
+          <a href="http://winscp.net/eng/index.php" target="_blank">http://winscp.net/eng/index.php</a>
+        </td>
+      </tr>
+      <!--
+      <tr>
+        <td>
+          <a href="URL" target="_blank">Name</a><br>
+          Description.
+        </td>
+        <td>
+          <a href="URL" target="_blank">URL</a>
+        </td>
+      </tr>
+      -->
+    </table>
+    
+    <!--#include virtual="includes/body-end.html" -->
+  </body>
+</html>

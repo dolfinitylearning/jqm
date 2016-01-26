@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dog info</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Dog info</h1>
+    <p>What breed would you like to know about?</p>
+    <nav>
+      <div>Papillon</div>
+      <div>Lab</div>
+      <div>Sheltie</div>
+    </nav>
+    <section id="dog-info">
+      <p id="breed"></p>
+      <p id="photo">
+        <img alt="Dog">
+      </p>
+      <p id="description"></p>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        //Hide dog-info when the page is loaded.
+        $("#dog-info").hide();
+      });
+      $("nav div").click(function(){
+        //What breed was clicked?
+        var breed = $(this).html();
+        //Set the breed name in the output.
+        $("#breed").html(breed);
+        //Set the photo.
+        $("#photo img").attr("src", breed.toLowerCase() + ".jpg");
+        //Set the description.
+        var description;
+        if ( breed == "Papillon" ) {
+          description = "Cute dog blah blah.";
+        }
+        else if ( breed == "Lab" ) {
+          description = "Happy dog blah blah.";
+        }
+        else {
+          description = "Pretty dog blah blah.";
+        }
+        $("#description").html( description );
+        //Show the entire output area.
+        $("#dog-info").show();
+      });
+    </script>
+  </body>
+</html>

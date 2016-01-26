@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Basic HTML/CSS exercises</h1>
+    </div>
+    <p class="lead">One page</p>
+    <p>
+      Make a page that looks <em>exactly</em> like 
+      <a href="one-page/index.html" target="_blank">this</a>,
+      <strong>without looking at the code</strong>.
+    </p>
+    <p>
+      When you've got it right, compare the HTML/CSS code with yours. Spot
+      the differences. Is your approach better, worse, or just different? Why?
+    </p>
+    <p class="lead">Small site</p>
+    <p>
+      Make a site that looks <em>exactly</em> like 
+      <a href="small-site/index.html" target="_blank">this</a>,
+      <strong>without looking at the code</strong>.
+    </p>
+    <p>
+      When you've got it right, compare the HTML/CSS code with yours. Spot
+      the differences. Is your approach better, worse, or just different? Why?
+    </p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
