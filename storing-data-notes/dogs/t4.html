@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dog app</title>
+    <title>Dog viewer app</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1>Dog app</h1>
+    <h1>Dog viewer app</h1>
     <p>(Look at my source code.)</p>
-    <section id="output"></section>
+    <p>Click on a dog to learn more.</p>
+    <section id="pack-table"></section>
+    <section id="dog-deets"></section>
     <script>
       //Define the Dog class.
-      var Dog = function(id, name, breed, weight) {
+      var Dog = function(id, name, breed, weight, description) {
         this.id = id
         this.name = name;
         this.breed = breed;
         this.weight = weight;
+        this.description = description;
       }
-      //render() method outputs the HTML to dispplay dog data.
-      Dog.prototype.render = function() {
-        var output = "<p>" + this.name + " is a " + this.breed + " and weighs " 
-            + this.weight + " pounds.</p>";
+      //renderRow() method outputs the HTML to display dog data as a row in a table.
+      Dog.prototype.renderSummaryRow = function() {
+        var output = "<tr data-id='" + this.id + "'><td>" 
+            + this.name + "</td><td>" 
+            + this.breed + "</td><td>" 
+            + this.weight + "</td></tr>";
+        return output;
+      };
+      //render() method outputs the HTML to display dog data.
+      Dog.prototype.renderDeets = function() {
+        var output = "<div data-id='" + this.id + "'>"
+            + "<p><strong>Name</strong>: " + this.name + "</p>"
+            + "<p><strong>Breed</strong>: " + this.breed + "</p>"
+            + "<p><strong>Weight</strong>: " + this.weight + "</p>"
+            + "<p><strong>Description</strong>: " + this.description + "</p>"
+            + "<p><img src='photos/" + this.id + ".jpg' alt='" + this.name + "'></p>"
+            + "</div>";
         return output;
       };
       
@@ -39,19 +55,44 @@
         }
       };
       Pack.prototype.render = function(){
-        var dogHtml = "<p><strong>" + this.name + "</strong></p>";
+        var dogHtml = "<h2>" + this.name + "</h2>"
+            + "<table class='pack'>"
+            + "<tr><th>Name</th><th>Breed</th><th>Weight</th></tr>"
         this.members.forEach(function(dog) {
-          dogHtml += dog.render();
+          dogHtml += dog.renderSummaryRow();
         });
+        dogHtml += "</table>";
         return dogHtml;
       };
       
       var jets = new Pack("Jets");
-      jets.addNew( new Dog(1, "Oscar", "Lab", 90) );
-      jets.addNew( new Dog(4, "Renata", "Lab/Coon hound", 35) );
-      jets.addNew( new Dog(9, "Snoopy", "Beagle", 25) );
+      jets.addNew( new Dog(1, "Oscar", "Lab", 90, 
+          "Best black lab ever!") );
+      jets.addNew( new Dog(4, "Renata", "Lab/Coon hound", 35, 
+          "Says: nobody else gets any love!") );
+      jets.addNew( new Dog(9, "Snoopy", "Beagle", 25,
+          "Curse you, Red Baron!") );
+      jets.addNew( new Dog(19, "Josie", "Lab", 40,
+          "Plays with the Pussy Cats") );
+      jets.addNew( new Dog(21, "CC", "Sheltie", 5,
+          "Had ADD: a dumb dog.") );
       
-      $("#output").html( jets.render() );
+      $(document).ready( function(){
+        $("#pack-table").html( jets.render() );
+        $("table.pack tr").click(function(){
+          //Get the id of the clicked row.
+          var dogId = $(this).data("id");
+          //Clear row highlights.
+          $("table.pack tr").removeClass("highlight");
+          //Highlight clicked row.
+          $(this).addClass("highlight");
+          //Show dog deets.
+          $("#dog-deets").html( jets.members[dogId].renderDeets());
+        });
+      });
+      
+      
+      
       
     </script>
   </body>
