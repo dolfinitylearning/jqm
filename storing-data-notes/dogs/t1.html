@@ -1,37 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <h1>Dogs</h1>
-    <p>(Look at my source code.)</p>
-    <section id="output"></section>
-    <script>
-      //Define the Dog class.
-      var Dog = function(name, breed, weight) {
-        this.name = name;
-        this.breed = breed;
-        this.weight = weight;
-      }
-      //render() method outputs the HTML to dispplay dog data.
-      Dog.prototype.render = function() {
-        var output = "<p>" + this.name + " is a " + this.breed + " and weighs " 
-            + this.weight + " pounds.</p>";
-        return output;
-      }
-      
-      var oscar = new Dog("Oscar", "Lab", 90);
-      var renata = new Dog("Renata", "Lab/Coon hound", 35);
-      
-      var dogHtml = oscar.render() + renata.render();
-      
-      $("#output").html(dogHtml);
-      
-    </script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Dogs</h1>
+    <p>(Look at my source code.)</p>
+    <section id="output"></section>
+    <script>
+      //Define the Dog class.
+      var Dog = function(name, breed, weight) {
+        this.name = name;
+        this.breed = breed;
+        this.weight = weight;
+      }
+      //render() method outputs the HTML to dispplay dog data.
+      Dog.prototype.render = function() {
+        var output = "<p>" + this.name + " is a " + this.breed + " and weighs " 
+            + this.weight + " pounds.</p>";
+        return output;
+      }
+      
+      var oscar = new Dog("Oscar", "Lab", 90);
+      var renata = new Dog("Renata", "Lab/Coon hound", 35);
+      
+      var dogHtml = oscar.render() + renata.render();
+      
+      $("#output").html(dogHtml);
+      
+    </script>
+  </body>
+</html>

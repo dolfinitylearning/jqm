@@ -1,58 +1,58 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Array of Dog objects</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <h1>Array of Dog objects</h1>
-    <p>(Look at my source code.)</p>
-    <section id="output"></section>
-    <script>
-      //Define the Dog class.
-      var Dog = function(id, name, breed, weight) {
-        this.id = id
-        this.name = name;
-        this.breed = breed;
-        this.weight = weight;
-      }
-      //render() method outputs the HTML to dispplay dog data.
-      Dog.prototype.render = function() {
-        var output = "<p>" + this.name + " is a " + this.breed + " and weighs " 
-            + this.weight + " pounds.</p>";
-        return output;
-      };
-      
-      var Pack = function(name) {
-        this.name = name;
-        this.members = new Array();
-      };
-      Pack.prototype.addNew = function(dog){
-        if ( this.members[dog.id] ) {
-          throw new Error("Dog " + dog.id + " already exists.");
-        }
-        else {
-          this.members[dog.id] = dog;
-        }
-      };
-      Pack.prototype.render = function(){
-        var dogHtml = "<p><strong>" + this.name + "</strong></p>";
-        this.members.forEach(function(dog) {
-          dogHtml += dog.render();
-        });
-        return dogHtml;
-      };
-      
-      var jets = new Pack("Jets");
-      jets.addNew( new Dog(1, "Oscar", "Lab", 90) );
-      jets.addNew( new Dog(4, "Renata", "Lab/Coon hound", 35) );
-      jets.addNew( new Dog(9, "Snoopy", "Beagle", 25) );
-      
-      $("#output").html( jets.render() );
-      
-    </script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Array of Dog objects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Array of Dog objects</h1>
+    <p>(Look at my source code.)</p>
+    <section id="output"></section>
+    <script>
+      //Define the Dog class.
+      var Dog = function(id, name, breed, weight) {
+        this.id = id
+        this.name = name;
+        this.breed = breed;
+        this.weight = weight;
+      }
+      //render() method outputs the HTML to dispplay dog data.
+      Dog.prototype.render = function() {
+        var output = "<p>" + this.name + " is a " + this.breed + " and weighs " 
+            + this.weight + " pounds.</p>";
+        return output;
+      };
+      
+      var Pack = function(name) {
+        this.name = name;
+        this.members = new Array();
+      };
+      Pack.prototype.addNew = function(dog){
+        if ( this.members[dog.id] ) {
+          throw new Error("Dog " + dog.id + " already exists.");
+        }
+        else {
+          this.members[dog.id] = dog;
+        }
+      };
+      Pack.prototype.render = function(){
+        var dogHtml = "<p><strong>" + this.name + "</strong></p>";
+        this.members.forEach(function(dog) {
+          dogHtml += dog.render();
+        });
+        return dogHtml;
+      };
+      
+      var jets = new Pack("Jets");
+      jets.addNew( new Dog(1, "Oscar", "Lab", 90) );
+      jets.addNew( new Dog(4, "Renata", "Lab/Coon hound", 35) );
+      jets.addNew( new Dog(9, "Snoopy", "Beagle", 25) );
+      
+      $("#output").html( jets.render() );
+      
+    </script>
+  </body>
+</html>

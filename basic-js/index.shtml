@@ -1,46 +1,46 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <!--#include virtual="/includes/head.html" -->
-  </head>
-  <body>
-    <!--#include virtual="/includes/navbar.html" -->
-    <!--#include virtual="/includes/body-start.html" -->
-    <div class="page-header">
-      <h1>Basic JavaScript exercises</h1>
-    </div>
-    <p class="lead">Dog photos</p>
-    <p>Make a page that looks and acts like 
-      <a href="dog-photos" target="_blank">this</a>,
-      <strong>without looking at the code</strong>.</p>
-    <p>When you get it right, compare the HTML/CSS/JS code with yours. Spot
-      the differences. Is your approach better, worse, or just different? Why?
-    </p>
-    <p class="lead">Dog info</p>
-    <p>Make a page that looks and acts like 
-      <a href="dog-info" target="_blank">this</a>,
-      <strong>without looking at the code</strong>.</p>
-    <p>When you get it right, compare the HTML/CSS/JS code with yours. Spot
-      the differences. Is your approach better, worse, or just different? Why?
-    </p>
-    <p class="lead">Tricky button</p>
-    <p>Make a page that looks and acts like 
-      <a href="trick-button" target="_blank">this</a>,
-      <strong>without looking at the code</strong>.</p>
-    <p>When you get it right, compare the HTML/CSS/JS code with yours. Spot
-      the differences. Is your approach better, worse, or just different? Why?
-    </p>
-    <p class="lead">Memory game</p>
-    <p>
-      This one is for people with some programming experience.
-      Make a page that looks and acts like 
-      <a href="memory" target="_blank">this</a>,
-      <strong>without looking at the code</strong>.
-    </p>
-    <p>
-      When you've got it right, compare the HTML/CSS/JS code with yours. Spot
-      the differences. Is your approach better, worse, or just different? Why?
-    </p>
-    <!--#include virtual="/includes/body-end.html" -->
-  </body>
-</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Basic JavaScript exercises</h1>
+    </div>
+    <p class="lead">Dog photos</p>
+    <p>Make a page that looks and acts like 
+      <a href="dog-photos" target="_blank">this</a>,
+      <strong>without looking at the code</strong>.</p>
+    <p>When you get it right, compare the HTML/CSS/JS code with yours. Spot
+      the differences. Is your approach better, worse, or just different? Why?
+    </p>
+    <p class="lead">Dog info</p>
+    <p>Make a page that looks and acts like 
+      <a href="dog-info" target="_blank">this</a>,
+      <strong>without looking at the code</strong>.</p>
+    <p>When you get it right, compare the HTML/CSS/JS code with yours. Spot
+      the differences. Is your approach better, worse, or just different? Why?
+    </p>
+    <p class="lead">Tricky button</p>
+    <p>Make a page that looks and acts like 
+      <a href="trick-button" target="_blank">this</a>,
+      <strong>without looking at the code</strong>.</p>
+    <p>When you get it right, compare the HTML/CSS/JS code with yours. Spot
+      the differences. Is your approach better, worse, or just different? Why?
+    </p>
+    <p class="lead">Memory game</p>
+    <p>
+      This one is for people with some programming experience.
+      Make a page that looks and acts like 
+      <a href="memory" target="_blank">this</a>,
+      <strong>without looking at the code</strong>.
+    </p>
+    <p>
+      When you've got it right, compare the HTML/CSS/JS code with yours. Spot
+      the differences. Is your approach better, worse, or just different? Why?
+    </p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
