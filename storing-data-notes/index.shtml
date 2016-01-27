@@ -1,18 +1,164 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <!--#include virtual="/includes/head.html" -->
-  </head>
-  <body>
-    <!--#include virtual="/includes/navbar.html" -->
-    <!--#include virtual="/includes/body-start.html" -->
-    <div class="page-header">
-      <h1>Storing data</h1>
-    </div>
-    <p><a href="dogs/t1.html" target="_blank">Dogs 1</a></p>
-    <p><a href="dogs/t2.html" target="_blank">Dogs 2</a></p>
-    <p><a href="dogs/t3.html" target="_blank">Dogs 3</a></p>
-    <p><a href="dogs/t4.html" target="_blank">Dogs 4</a></p>
-    <!--#include virtual="/includes/body-end.html" -->
-  </body>
-</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Storing data</h1>
+    </div>
+    
+    <p>
+      There are two aspects to storing data. The first is how to represent 
+      the data in the browser's memory, so your code can access. The second
+      is saving the data in <code>localstorage</code>, so your app can 
+      retrieve it. 
+    </p>
+    <p>
+      This page is about the first task, representing data in memory so your
+      code can access it. You'll have some code that work the interface.
+      Responds to users clicking things, swiping, and so on. That code will 
+      grab data from memory to show on the screen, in edit forms, etc. The 
+      people writing that code will have an easier time of it if the data
+      handling code is written to be easy for them to use.
+    </p>
+    <h2>Code that's easy to use</h2>
+    <p>
+      What does it mean for code to be easy to use? It means easy to 
+      think about. Here's an example. Suppose you read this documentation
+      about car data.
+    </p>
+    <pre>To fetch data about a car when you know its id, call:
+  getCarById(id)
+For example:
+  satansCar = carDataBase.getCarById(666)
+
+To get a car's model year, call:
+  car.getModelYear()
+For example:
+  modelYear = satanscar.getModelYear()
+</pre>
+    <p>
+      This code gives you a <em>mental model</em> of car data. <code>carDatabase</code>
+      is a bunch of car data. If you have an id, you can ask for data about
+      a car. How does <code>carDatabase</code> work? You don't need to think
+      about it.
+    </p>
+    <p>
+      If you want to get a car's model year, tell it to <code>getModelYear()</code>.
+      You don't need to think about how it works.
+    </p>
+    <p>
+      Here's another set of car data documentation.
+    </p>
+    <pre>
+To fetch car data from a registered data store:
+  retrieveRow(dataLinkReference, connectionId, key, fetchCallback, errorCallback)
+All arguments are required. 
+dataLinkReference must be a valid DLR sequence object, already initialized.
+connectionId is drawn from the connection pool defined by the dataLinkReference
+  object. See the DLR API for details.
+key is the key.
+fetchCallback is a function object. Note! this will not be what you expect.
+  Use call() to set this correctly.
+errorCallback is a function object. Note! this will not be what you expect.
+  Use call() to set this correctly.
+Example:
+  retrieveRow(dlr34, connIdIndirect, 666, dataReturnOK, dataReturnError)
+</pre>
+    <p>
+      Which set of docs gives you a clean, easy to understand mental model?
+    </p>
+    <h2>Good APIs</h2>
+    <p>
+      The data handling code is a library. The documentation defines an API, or
+      application programming interface. Programmers can call the code
+      defined by the API without worrying about how it works.
+    </p>
+    <p>
+      A good library has a few characteristics. First, it helps the programmers
+      using the code do the tasks they need to do, like write interfaces that
+      let people mess with car data.
+    </p>
+    <p>
+      Second, a good library has a strong boundary. That is, programmers can do
+      their work without needing to bypass the official functions. They treat
+      the library as something that "just works."
+    </p>
+    <p>
+      Third, the API is as simple as it can be, but not so simple that programmers
+      can't do their work. This can be tricky. Often API designers
+      have simple functions that do the most common things, with more complex
+      functions for those programmers who need them. It's also common
+      to give optional arguments to functions, with default values that work
+      for almost all cases. Programmers only specify arguments when they need
+      to do something different.
+    </p>
+    <p>  
+      These are primarily
+      psychological issues, not technical. Programs are complex to fit into 
+      human brains at one time.
+      You need to decompose them, that is, break them into pieces so that you can 
+      work on one piece at a time. Or you work on one piece and another human works
+      on another. Good libraries with good APIs help team members understand
+      each others' work.
+    </p>
+    <h2>Simple dog</h2>
+    <p>
+      An example. Click <a href="dogs/t1.html" target="_blank">here</a> to
+      open it in a new tab. Then Ctrl+U to see the code. 
+    </p>
+    <p>
+      Let's start with the code that creates Dogs.  
+    </p>
+    <pre>var oscar = new Dog("Oscar", "Lab", 90);
+var renata = new Dog("Renata", "Lab/Coon hound", 35);</pre>
+    <p>
+      Easy to figure out. <code>new Dog()</code>, with some arguments. Name,
+      breed, and weight.
+    </p>
+    <p>
+      How to output dog data? That's easy, too. Call a dog's <code>render()</code>
+      function. It returns the HTML needed to show the dog.
+    </p>
+    <pre>var dogHtml = oscar.render() + renata.render();
+$("#output").html(dogHtml);</pre>    
+    <p>
+      <code>oscar.render()</code> returns the HTML needed to show
+      Oscar's data. We don't need to look inside <code>oscar</code>,
+      grab individual attributes, and assemble HTML. We could, but the
+      <code>render()</code> function does it for us. Easy.
+    </p>
+    <p>
+      Let's have a look at the code that makes up the Dog library. First, 
+      we have a function that defines the Dog class. A class is like a template.
+    </p>
+    <pre>//Define the Dog class.
+var Dog = function(name, breed, weight) {
+	this.name = name;
+	this.breed = breed;
+	this.weight = weight;
+}</pre>
+    <p>
+      Use the class like this:
+    </p>
+    <pre>var oscar = new Dog("Oscar", "Lab", 90);
+var renata = new Dog("Renata", "Lab/Coon hound", 35);</pre>
+    <p>
+      <code>oscar</code> and <code>renata</code> are both objects of class
+      <code>Dog</code>. Every object of class <code>Dog</code> has the same
+      attributes: name, breed, and weight. 
+    </p>
+    <p>
+      
+    </p>
+    
+    
+    <p><a href="dogs/t2.html" target="_blank">Dogs 2</a></p>
+    <p><a href="dogs/t3.html" target="_blank">Dogs 3</a></p>
+    <p><a href="dogs/t4.html" target="_blank">Dogs 4</a></p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
