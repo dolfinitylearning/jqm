@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dog viewer app</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Dog viewer app</h1>
+    <p>(Look at my source code.)</p>
+    <p>Click on a dog to learn more.</p>
+    <p><button class="add" type="button">Add</button></p>
+    <section id="pack-table"></section>
+    <section id="dog-deets"></section>
+    <script>
+      //Define the Dog class.
+      var Dog = function(id, name, breed, weight, description) {
+        this.id = id
+        this.name = name;
+        this.breed = breed;
+        this.weight = weight;
+        this.description = description;
+      }
+      //renderRow() method outputs the HTML to display dog data as a row in a table.
+      Dog.prototype.renderSummaryRow = function() {
+        var output = "<tr data-id='" + this.id + "'><td>" 
+            + this.name + "</td><td>" 
+            + this.breed + "</td><td>" 
+            + this.weight + "</td><td>"
+            + "<button class='edit' type='button'>Edit</button>"
+            + "<button class='delete' type='button'>Delete</button>"
+            + "</td></tr>";
+        return output;
+      };
+      //renderDeets() method outputs the HTML to display dog data.
+      Dog.prototype.renderDeets = function() {
+        var output = "<div data-id='" + this.id + "'>"
+            + "<p><strong>Name</strong>: " + this.name + "</p>"
+            + "<p><strong>Breed</strong>: " + this.breed + "</p>"
+            + "<p><strong>Weight</strong>: " + this.weight + "</p>"
+            + "<p><strong>Description</strong>: " + this.description + "</p>"
+            + "<p><img src='photos/" + this.id + ".jpg' alt='" + this.name + "'></p>"
+            + "</div>";
+        return output;
+      };
+      
+      var Pack = function(name) {
+        this.name = name;
+        this.members = new Array();
+      };
+      Pack.prototype.storeDog = function(dog){
+        this.members[dog.id] = dog;
+      };
+      Pack.prototype.getDog = function(id) {
+        return this.members[id];
+      };
+      Pack.prototype.deleteDog = function(id){
+        delete this.members[id];
+      };
+      //Return an id available for a new dog.
+      Pack.prototype.getNewDogId = function() {
+        return this.members.length;
+      };
+      Pack.prototype.render = function(){
+        var dogHtml = "<h2>" + this.name + "</h2>"
+            + "<table class='pack'>"
+            + "<tr><th>Name</th><th>Breed</th><th>Weight</th></tr>";
+        this.members.forEach(function(dog) {
+          dogHtml += dog.renderSummaryRow();
+        });
+        dogHtml += "</table>";
+        return dogHtml;
+      };
+      
+      var editor = new Object();
+      //Render an edit/add form w/o any data in the fields.
+      editor.renderEmptyEditAddForm = function(){
+        var output = 
+            "<form id='dog-edit-form'>"
+          +   "<label>Name <input class='name' type='text' size='20'></label>"
+          +   "<label>Breed <input class='breed' type='text' size='20'></label>"
+          +   "<label>Weight <input class='weight' type='text' size='5'> pounds</label>"
+          +   "<label>Description <textarea class='description'></textarea></label>"
+          +   "<button type='button'>Save</button>"
+          + "</form>";
+        return output;
+      };
+      //Fill the edit form with dog data.
+      editor.fillEditForm = function( dog ) {
+        $("#dog-edit-form").data("id", dog ? dog.id : "new" );
+        $("#dog-edit-form input.name").val( dog ? dog.name : "" );
+        $("#dog-edit-form input.breed").val( dog ? dog.breed : "" );
+        $("#dog-edit-form input.weight").val( dog ? dog.weight : "" );
+        $("#dog-edit-form input.description").val( dog ? this.description : "" );
+      };
+      //Save data in the form into a new dog, or update an existing one.
+      editor.saveFormData = function( pack ) {
+        var dog;
+        var dogId = $("#dog-edit-form").data("id");
+        if ( dogId == "new" ) {
+          //This is a new dog.
+          dogId = pack.getNewDogId();
+        }
+        dog = new Dog( 
+          dogId,
+          $("#dog-edit-form input.name").val(),
+          $("#dog-edit-form input.breed").val(),
+          $("#dog-edit-form input.weight").val(),
+          $("#dog-edit-form input.description").val()
+        );
+        pack.storeDog( dog );
+      };
+      
+      
+      
+      
+      var jets = new Pack("Jets");
+      jets.storeDog( new Dog(1, "Oscar", "Lab", 90, 
+          "Best black lab ever!") );
+      jets.storeDog( new Dog(4, "Renata", "Lab/Coon hound", 35, 
+          "Says: nobody else gets any love!") );
+      jets.storeDog( new Dog(9, "Snoopy", "Beagle", 25,
+          "Curse you, Red Baron!") );
+      jets.storeDog( new Dog(19, "Josie", "Lab", 40,
+          "Plays with the Pussy Cats") );
+      jets.storeDog( new Dog(21, "CC", "Sheltie", 5,
+          "Had ADD: a dumb dog.") );
+      
+      $(document).ready( function(){
+        $("#pack-table").html( jets.render() );
+        $("table.pack tr button.delete").click(function() {
+          //Get the id of the dog to delete
+          var dogId = $(this).parent("tr").data("id");
+          var dog = jets.getDog( dogId );
+          if ( confirm("Are you sure you want to delete " + dog.name + "?") ) {
+            jets.deleteDog( dogId );
+          }
+        });
+        
+        
+        $("table.pack tr").click(function(){
+          //Get the id of the clicked row.
+          var dogId = $(this).data("id");
+          //Clear row highlights.
+          $("table.pack tr").removeClass("highlight");
+          //Highlight clicked row.
+          $(this).addClass("highlight");
+          //Show dog deets.
+          $("#dog-deets").html( jets.members[dogId].renderDeets());
+        });
+      });
+      
+      
+      
+      
+    </script>
+  </body>
+</html>
