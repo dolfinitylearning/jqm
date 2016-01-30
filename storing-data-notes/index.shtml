@@ -12,49 +12,26 @@
     
     <p>
       There are two aspects to storing data. The first is how to represent 
-      the data in the browser's memory, so your code can access. The second
+      the data in the browser's memory, so your cool JavaSCript code can use it. The second
       is saving the data in <code>localstorage</code>, so your app can 
       retrieve it. 
     </p>
     <p>
       This page is about the first task, representing data in memory so your
-      code can access it. You'll have some code that work the interface.
-      Responds to users clicking things, swiping, and so on. That code will 
-      grab data from memory to show on the screen, in edit forms, etc. The 
-      people writing that code will have an easier time of it if the data
-      handling code is written to be easy for them to use.
+      code can access it. Your app interface code will be easier to write if the data
+      handling code is easy  to use.
     </p>
+    
+    
+    
     <h2>Code that's easy to use</h2>
     <p>
       What does it mean for code to be easy to use? It means easy to 
-      think about. Here's an example. Suppose you read this documentation
-      about car data.
-    </p>
-    <pre>To fetch data about a car when you know its id, call:
-  getCarById(id)
-For example:
-  satansCar = carDataBase.getCarById(666)
-
-To get a car's model year, call:
-  car.getModelYear()
-For example:
-  modelYear = satanscar.getModelYear()
-</pre>
-    <p>
-      This code gives you a <em>mental model</em> of car data. <code>carDatabase</code>
-      is a bunch of car data. If you have an id, you can ask for data about
-      a car. How does <code>carDatabase</code> work? You don't need to think
-      about it.
-    </p>
-    <p>
-      If you want to get a car's model year, tell it to <code>getModelYear()</code>.
-      You don't need to think about how it works.
-    </p>
-    <p>
-      Here's another set of car data documentation.
+      think about. Suppose you this documentation
+      about rocket data.
     </p>
     <pre>
-To fetch car data from a registered data store:
+To fetch rocket data from a registered data store:
   retrieveRow(dataLinkReference, connectionId, key, fetchCallback, errorCallback)
 All arguments are required. 
 dataLinkReference must be a valid DLR sequence object, already initialized.
@@ -69,7 +46,24 @@ Example:
   retrieveRow(dlr34, connIdIndirect, 666, dataReturnOK, dataReturnError)
 </pre>
     <p>
-      Which set of docs gives you a clean, easy to understand mental model?
+      Easy, right? Wrong. Your brain will be on fire if you try to use this 
+      stuff.
+    </p>
+    <p>
+      Here's another set of rocket data documentation.
+    </p>
+    <pre>To fetch data about a rocket when you know its id, call:
+  getRocketById(id)
+For example:
+  satansRocket = dataBase.getRocketById(666)
+
+To get a rocket's weight, call:
+  rocket.getWeight()
+For example:
+  weight = satansRocket.getWeight()
+</pre>
+    <p>
+      Ah, that's better! These docs give you a simple <em>mental model</em> of rocket data.
     </p>
     <h2>Good APIs</h2>
     <p>
@@ -78,7 +72,7 @@ Example:
       defined by the API without worrying about how it works.
     </p>
     <p>
-      A good library has a few characteristics. First, it helps the programmers
+      A good library has a few characteristics. First, it helps  programmers
       using the code do the tasks they need to do, like write interfaces that
       let people mess with car data.
     </p>
@@ -93,18 +87,22 @@ Example:
       have simple functions that do the most common things, with more complex
       functions for those programmers who need them. It's also common
       to give optional arguments to functions, with default values that work
-      for almost all cases. Programmers only specify arguments when they need
+      for almost all cases. Programmers only specify optional arguments when they need
       to do something different.
     </p>
     <p>  
       These are primarily
-      psychological issues, not technical. Programs are complex to fit into 
+      psychological issues, not technical. Programs are too complex to fit into 
       human brains at one time.
       You need to decompose them, that is, break them into pieces so that you can 
       work on one piece at a time. Or you work on one piece and another human works
-      on another. Good libraries with good APIs help team members understand
+      on another piece. Good libraries with good APIs help team members understand
       each others' work.
     </p>
+    
+    
+    <p><strong>Let's do data!</strong></p>
+    
     <h2>Simple dog</h2>
     <p>
       An example. Click <a href="dogs/t1.html" target="_blank">here</a> to
@@ -152,13 +150,198 @@ var renata = new Dog("Renata", "Lab/Coon hound", 35);</pre>
       attributes: name, breed, and weight. 
     </p>
     <p>
-      
+      Another part of the Dog class definition:
+    </p>
+    <pre>Dog.prototype.render = function() {
+  var output = "&lt;p&gt;" + this.name + " is a " + this.breed + " and weighs " 
+      + this.weight + " pounds.&lt;/p&gt;";
+  return output;
+}</pre>
+    <p>
+      This function that returns the HTML that shows a Dog object. The 
+      function is part of the class, so you call it like this:
+    </p>
+    <pre>oscar.render();</pre>
+    <p>
+      The <code>prototype</code> thing means that all instances of Dog share
+      one copy of the code. More efficient memory use.
+    </p>
+    <p>
+      What do you do with the HTML returned by <code>render()</code>? An example:
+    </p>
+    <pre>$("#dog-data").html( oscar.render() );</pre>
+    <p>
+      <strong>Exercise</strong>
+    </p>
+    <p>Do <a href="/data-models/index.shtml#exer1">this</a></p>
+    
+    
+    
+    <h2>Simple dog rides again</h2>
+    <p>
+      Another example. Click <a href="dogs/t2.html" target="_blank">here</a> to
+      open it in a new tab. Then Ctrl+U to see the code. 
+    </p>
+    <p>
+      This one uses an array to store a collection of dog data.
+    </p>
+    <pre>var pack = new Array();</pre>
+    <p>
+      Add add dog to the array:
+    </p>
+    <pre>pack.push( 
+  new Dog("Oscar", "Lab", 90), 
+  new Dog("Renata", "Lab/Coon hound", 35),
+  new Dog("Snoopy", "Beagle", 25)
+);</pre>
+    <p>
+      To show all the data, call the <code>render()</code> function for each
+      dog. Collect the HTML that's returned.
+    </p>
+<pre>pack.forEach(function (dog, index) {
+   dogHtml += dog.render();
+});
+$("#output").html(dogHtml);
+</pre>    
+
+    <p>
+      <code>foreach</code> loops through the array, running the function 
+      once for each element. <code>index</code> isn't used in this
+      code.
+    </p>
+    <p>
+      Open the browser's console, and look at <code>pack</code>. You'll see that 
+      each dog has an index value. So <code>pack[0]</code> is the first dog,
+      <code>pack[1]</code> the second dog, etc.
+    </p>
+    <p>
+      Type <code>pack[2]</code> into the console command line. See what you get.
+    </p>
+    <p>
+      Put a breakpoint in the loop. See how <code>dog</code> and 
+      <code>index</code> change as you run through the loop.
     </p>
     
+    <p>
+      <strong>Exercise</strong>
+    </p>
+    <p>Do <a href="/data-models/index.shtml#exer2">this</a></p>
     
-    <p><a href="dogs/t2.html" target="_blank">Dogs 2</a></p>
-    <p><a href="dogs/t3.html" target="_blank">Dogs 3</a></p>
-    <p><a href="dogs/t4.html" target="_blank">Dogs 4</a></p>
+    
+    
+    
+    <h2>Return of simple dog</h2>
+    <p>
+      Another example. Click <a href="dogs/t3.html" target="_blank">here</a> to
+      open it in a new tab. Then Ctrl+U to see the code. 
+    </p>
+    <p>
+      <code>Dog</code> now has an id attribute.
+    </p>
+    <p>
+      THe code wraps the array in a class called <code>Pack</code>. It has an 
+      <code>addNew()</code> function that adds a dog to the pack. What is
+      the <code>throw</code> code for?
+    </p>
+    <p>
+      <code>Pack</code> has its own <code>render()</code> function. It renders
+      an entire pack, by calling the <code>render()</code> function of all the
+      dogs in the pack, add mushing the results together.
+    </p>
+    <p>
+      Look at the code that makes a pack:
+    </p>  
+    <pre>var jets = new Pack("Jets");
+jets.addNew( new Dog(1, "Oscar", "Lab", 90) );
+jets.addNew( new Dog(4, "Renata", "Lab/Coon hound", 35) );
+jets.addNew( new Dog(9, "Snoopy", "Beagle", 25) );</pre>      
+    <p>
+      This code doesn't know that <code>Pack</code> uses an array to store
+      dog data. It doesn't care. It just calls <code>addNew()</code>, and it works.
+      A good API boundary.
+    </p>
+    <p>How to output a pack?</p>
+    <pre>$("#output").html( jets.render() );</pre>  
+    <p>A <code>Pack</code> knows how to render itself. </p>
+
+    <p>
+      <strong>Exercise</strong>
+    </p>
+    <p>Do <a href="/data-models/index.shtml#exer3">this</a></p>
+    
+
+    
+
+    <h2>Simple dog IV: This time, it's personal</h2>
+    <p>
+      Another example. Click <a href="dogs/t4.html" target="_blank">here</a> to
+      open it in a new tab. Then Ctrl+U to see the code. 
+    </p>
+    <p>
+      This creates a more appy thing. Look at the code.
+    </p>
+    <p>
+      <code>Dog</code> has two render functions. One makes a row for the table.
+      The other shows all the deets. The photo handling is kinda lame, but 
+      it works.
+    </p>
+    <p>
+      There's also a click function. Adding and removing classes is a common
+      way to get things done.
+    </p>
+    <p>
+      <strong>Exercise</strong>
+    </p>
+    <p>Do <a href="/data-models/index.shtml#exer4">this</a></p>
+    
+    
+    
+    <h2>Simple dog V: Not so simple</h2>
+    <p>
+      Another example. Click <a href="dogs/t5.html" target="_blank">here</a> to
+      open it in a new tab. Then Ctrl+U to see the code. 
+    </p>
+    <p>
+      Dog is about the same, with better docs.
+    </p>
+    <p>
+      Pack is about the same, but has another function that returns an 
+      available id number for new dogs. The caller doesn't have to 
+      know how it works. It just does.
+    </p>
+    <p>
+      <code>viewEditor</code> manages the editing displays. Check it out.
+      It's not a class, just one object. 
+    </p>
+    <p>
+      The controller links up the buttons and other user actions to the
+      <code>viewEditor</code>. 
+    </p>
+    <p>
+      One thing that's different. Earlier, we had this line to catch clicks
+      on table rows:
+    </p>
+    <pre>$("table.pack tr").click(function(){</pre>
+    <p>Now:</p>
+    <pre>$("table.pack").on("click", "tr", function(){</pre>
+    <p>
+      It's a problem of timing. The last program created the table,
+      then added click handlers to its rows. OK, but this program 
+      adds new dog rows later, as the user wants. When they're added, they don't have
+      click event handlers attached, unless we change the add-new-row
+      code to also attach handlers. Gets messy.
+    </p>
+    <p>
+      The second approach attaches a handler to the table, rather than to rows.
+      The strange "tr" is event delegation. The table gets the click, then
+      looks to see if the click is on a row. If so, it runs the function.
+    </p>
+    
+    <p>
+      <strong>Exercise</strong>
+    </p>
+    <p>Do <a href="/data-models/index.shtml#exer5">this</a></p>
+    
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>

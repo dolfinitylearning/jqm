@@ -14,8 +14,20 @@
     <p><button class="add" type="button">Add</button></p>
     <section id="pack-table"></section>
     <section id="dog-deets"></section>
+    <section id="dog-form"></section>
     <script>
-      //Define the Dog class.
+      
+      //***************** DOG CLASS ****************
+      
+      /**
+       * Define the Dog class.
+       * @param {Integer} id Id of the dog, e.g., 8.
+       * @param {String} name Name, e.g., Lassie.
+       * @param {String} breed Breed, e.g., Lab.
+       * @param {Number} weight Weight in pounds, e.g., 56
+       * @param {String} description Description, e.g., Finds TImmy in a well.
+       * @returns {Dog} A dog object.
+       */
       var Dog = function(id, name, breed, weight, description) {
         this.id = id
         this.name = name;
@@ -23,18 +35,26 @@
         this.weight = weight;
         this.description = description;
       }
-      //renderRow() method outputs the HTML to display dog data as a row in a table.
+      
+      /**
+       * Creates the HTML to display dog data as a row in a table.
+       * @returns {String} HTML for a dog row.
+       */
       Dog.prototype.renderSummaryRow = function() {
         var output = "<tr data-id='" + this.id + "'><td>" 
             + this.name + "</td><td>" 
             + this.breed + "</td><td>" 
             + this.weight + "</td><td>"
             + "<button class='edit' type='button'>Edit</button>"
-            + "<button class='delete' type='button'>Delete</button>"
+            + "&nbsp;<button class='delete' type='button'>Delete</button>"
             + "</td></tr>";
         return output;
       };
-      //renderDeets() method outputs the HTML to display dog data.
+
+      /**
+       * Creates HTML to show the details of a dog.
+       * @returns {String} HTML.
+       */
       Dog.prototype.renderDeets = function() {
         var output = "<div data-id='" + this.id + "'>"
             + "<p><strong>Name</strong>: " + this.name + "</p>"
@@ -45,25 +65,60 @@
             + "</div>";
         return output;
       };
-      
+
+
+  
+  
+      //***************** PACK CLASS ****************
+
+      /**
+       * Define a Pack, a collection of Dogs.
+       * @param {type} name Name of the pack, e.g., Sharks.
+       * @returns {Pack} A Pack object.
+       */
       var Pack = function(name) {
         this.name = name;
         this.members = new Array();
       };
+      
+      /**
+       * Store a Dog in a Pack.
+       * @param {Object} dog Dog to store.
+       */
       Pack.prototype.storeDog = function(dog){
         this.members[dog.id] = dog;
       };
+      
+      /**
+       * Get a Dog from a Pack.
+       * @param {Integer} id Id of the Dog.
+       * @returns {Object} Dog.
+       */
       Pack.prototype.getDog = function(id) {
         return this.members[id];
       };
+      
+      /**
+       * Remove a Dog from a pack.
+       * @param {Integer} id Id of the Dog.
+       */
       Pack.prototype.deleteDog = function(id){
         delete this.members[id];
       };
-      //Return an id available for a new dog.
+      
+      /**
+       * Get an id for a new Dog.
+       * @returns {Integer} Id.
+       */
       Pack.prototype.getNewDogId = function() {
         return this.members.length;
       };
-      Pack.prototype.render = function(){
+      
+      /**
+       * Create the HTML for showing a Pack.
+       * @returns {String} HTML.
+       */
+      Pack.prototype.renderPack = function(){
         var dogHtml = "<h2>" + this.name + "</h2>"
             + "<table class='pack'>"
             + "<tr><th>Name</th><th>Breed</th><th>Weight</th></tr>";
@@ -74,9 +129,20 @@
         return dogHtml;
       };
       
-      var editor = new Object();
-      //Render an edit/add form w/o any data in the fields.
-      editor.renderEmptyEditAddForm = function(){
+      
+      
+      
+      //***************** VIEW ****************
+      
+      /**
+       * editorView shows the editing interface.
+       */
+      var editorView = new Object();
+      /**
+       * Create HTML for an MT add/edit form.
+       * @returns {String} HTML
+       */
+      editorView.renderEmptyEditAddForm = function(){
         var output = 
             "<form id='dog-edit-form'>"
           +   "<label>Name <input class='name' type='text' size='20'></label>"
@@ -87,35 +153,130 @@
           + "</form>";
         return output;
       };
-      //Fill the edit form with dog data.
-      editor.fillEditForm = function( dog ) {
+      
+      /** 
+       * Fill the edit form with dog data.
+       * 
+       * @param {Object} dog Dog to show, or MT for empty form.
+       */
+      editorView.fillEditForm = function( dog ) {
         $("#dog-edit-form").data("id", dog ? dog.id : "new" );
         $("#dog-edit-form input.name").val( dog ? dog.name : "" );
         $("#dog-edit-form input.breed").val( dog ? dog.breed : "" );
         $("#dog-edit-form input.weight").val( dog ? dog.weight : "" );
-        $("#dog-edit-form input.description").val( dog ? this.description : "" );
+        $("#dog-edit-form textarea.description").val( dog ? dog.description : "" );
       };
       //Save data in the form into a new dog, or update an existing one.
-      editor.saveFormData = function( pack ) {
+      editorView.saveFormData = function( pack ) {
         var dog;
+        var newDog = false;
+        //Get id of dog.
         var dogId = $("#dog-edit-form").data("id");
         if ( dogId == "new" ) {
           //This is a new dog.
           dogId = pack.getNewDogId();
+          newDog = true;
         }
+        //Create new dog object.
         dog = new Dog( 
           dogId,
           $("#dog-edit-form input.name").val(),
           $("#dog-edit-form input.breed").val(),
           $("#dog-edit-form input.weight").val(),
-          $("#dog-edit-form input.description").val()
+          $("#dog-edit-form textarea.description").val()
         );
+        //Update collection.
         pack.storeDog( dog );
+        //Update display.
+        if ( newDog ) {
+          //This is a new dog. Add a new row to the end of the pack's table.
+          $("table.pack").append( dog.renderSummaryRow() );
+        }
+        else {
+          //Update current row.
+          $("tr[data-id='" + dogId + "'").replaceWith( dog.renderSummaryRow() );
+        }
+        this.hideEditForm();
       };
       
+      //
+      /**
+       * Delete a dog. 
+       * @param {type} dogId
+       * @returns {undefined}
+       */
+      editorView.deleteDog = function( dogId ) {
+          //Highlight row.
+          editorView.highlightRow( dogId );
+          //Show deets.
+          editorView.showDogDeets( dogId );
+          var dog = jets.getDog( dogId );
+          if ( confirm("Are you sure you want to delete " + dog.name + "?") ) {
+            jets.deleteDog( dogId );
+            $("table.pack tr[data-id='" + dogId + "']").remove();
+            editorView.hideDogDeets();
+          }        
+      };
       
+      /**
+       * Start editing a dog. Prep the editing form.
+       * @param {Integer} dogId Id of the dog to edit, e.g., 9.
+       */
+      editorView.prepEditDogForm = function( dogId ) {
+        //Highlight row.
+        editorView.highlightRow( dogId );
+        var dog = jets.getDog( dogId );
+        editorView.hideDogDeets();
+        editorView.fillEditForm(dog);
+        editorView.showEditForm();
+      };
+
+      /**
+       * Hightlight a row for a  dog.
+       * @param {Integer} dogId Id of the dog to highlight, e.g., 9.
+       */
+      editorView.highlightRow = function(dogId){
+        //Clear row highlights.
+        $("table.pack tr").removeClass("highlight");
+        //Highlight row.
+        var dogRow = $("table.pack tr[data-id='" + dogId + "']");
+        dogRow.addClass("highlight");
+      };
       
+      /**
+       * Show all data about a dog.
+       * @param {Integer} dogId Id of the dog.
+       */
+      editorView.showDogDeets = function(dogId){
+        $("#dog-deets").html( jets.members[dogId].renderDeets()).show();
+      };
       
+      /**
+       * Hide the dog details display area.
+       */
+      editorView.hideDogDeets = function(){
+        $("#dog-deets").hide();
+      };
+      
+      /**
+       * Make the edit form visible.
+       */
+      editorView.showEditForm = function() {
+        $("#dog-form").show();
+      };
+
+      /**
+       * Hide the dog edit form.
+       */
+      editorView.hideEditForm = function() {
+        $("#dog-form").hide();
+      };
+
+  
+  
+  
+      //***************** DOG DATABASE ****************
+  
       var jets = new Pack("Jets");
       jets.storeDog( new Dog(1, "Oscar", "Lab", 90, 
           "Best black lab ever!") );
@@ -128,33 +289,52 @@
       jets.storeDog( new Dog(21, "CC", "Sheltie", 5,
           "Had ADD: a dumb dog.") );
       
+      
+      //***************** CONTROLLER ****************
+      //Link up the clicky things to code.
+      
       $(document).ready( function(){
-        $("#pack-table").html( jets.render() );
-        $("table.pack tr button.delete").click(function() {
+        //Set up the editing table.
+        $("#pack-table").html( jets.renderPack() );
+        //Set up the editing form.
+        $("#dog-form")
+            .html( editorView.renderEmptyEditAddForm() )
+            .hide();
+        //Set up delete button.
+        $("table.pack").on("click", "button.delete", function(event) {
+          event.stopPropagation();
           //Get the id of the dog to delete
-          var dogId = $(this).parent("tr").data("id");
-          var dog = jets.getDog( dogId );
-          if ( confirm("Are you sure you want to delete " + dog.name + "?") ) {
-            jets.deleteDog( dogId );
-          }
+          var dogId = $(this).closest("tr").data("id");
+          editorView.deleteDog( dogId );
         });
-        
-        
-        $("table.pack tr").click(function(){
+        //Set up edit button.
+        $("table.pack").on("click", "button.edit", function(event) {
+          event.stopPropagation();
+          //Get the id of the dog to edit
+          var dogId = $(this).closest("tr").data("id");
+          editorView.prepEditDogForm( dogId );
+        });
+        //Set up data row click.
+        $("table.pack").on("click", "tr", function(){
           //Get the id of the clicked row.
           var dogId = $(this).data("id");
-          //Clear row highlights.
-          $("table.pack tr").removeClass("highlight");
-          //Highlight clicked row.
-          $(this).addClass("highlight");
-          //Show dog deets.
-          $("#dog-deets").html( jets.members[dogId].renderDeets());
+          editorView.highlightRow( dogId );
+          editorView.hideEditForm();
+          editorView.showDogDeets( dogId );
+        });
+         //Set up the Add button click.
+        $("button.add").click(function() {
+          editorView.hideDogDeets();
+          editorView.highlightRow( "" );
+          editorView.fillEditForm( "" );
+          $("#dog-edit-form").data("id", "new");
+          editorView.showEditForm();
+        });
+        //Set up save button click.
+        $("#dog-edit-form button").click(function() {
+          editorView.saveFormData( jets );
         });
       });
-      
-      
-      
-      
     </script>
   </body>
 </html>

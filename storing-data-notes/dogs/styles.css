@@ -20,3 +20,8 @@ table.pack td {
 table.pack tr.highlight td {
   background-color: #00ff33;
 }
+
+form label {
+  display: block;
+  margin: 20px;
+}

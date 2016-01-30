@@ -7,9 +7,59 @@
     <!--#include virtual="/includes/navbar.html" -->
     <!--#include virtual="/includes/body-start.html" -->
     <div class="page-header">
-      <h1>Data models</h1>
+      <h1>Data models exercises</h1>
     </div>
-    <p>No content yet.</p>
+    <p class="lead" id="exer1">Cars 1</p>
+    <p>Create a Car class, with whatever attributes you like, but make one of the 
+      attributes <code>weight</code>. Give the class a 
+      <code>render()</code> function. Make a page that shows data about
+      five cars. Base it on the <a href="/storing-data-notes/dogs/t1.html">first dog class</a>.</p>
+    
+    
+    <p class="lead" id="exer2">Cars 2</p>
+    <p>Use an array for your cars, as in the 
+      <a href="/storing-data-notes/dogs/t2.html">second dog example</a>. Write code
+      that shows all of the car data.</p>
+    <p>
+      Show the total weight of all the cars. Write code that works no matter
+      how many cars are in the array.
+    </p>
+    
+    
+    <p class="lead" id="exer3">Cars 3</p>
+    <p>Add an id attribute to <code>Cars</code>.
+    </p>
+    <p>
+      Make a collection class, with <code>addNew()</code>, <code>render()</code>,
+      and <code>delete</code> functions. Use the 
+      <a href="/storing-data-notes/dogs/t3.html">third dog example</a> as a 
+      reference.
+    </p>
+    
+    
+    <p class="lead" id="exer4">Cars 4</p>
+    <p>
+      Add an interactive display of deets, like the 
+      <a href="/storing-data-notes/dogs/t4.html">fourth dog example</a>.
+    </p>
+    <p>
+      Change it so that the row is highlighted and the deets are shown
+      when the user moves the mouse cursor over a car, without having to
+      click. If s/he moves the cursor off the table, the deets go away,
+      and nothing is highlighted.
+    </p>
+
+    
+    <p class="lead" id="exer5">Cars 5</p>
+    <p>
+      Make a car editing app, like the  
+      <a href="/storing-data-notes/dogs/t5.html">fifth dog example</a>.
+    </p>
+    <p>
+      In the line that shows the name of the car collection, show the number of 
+      cars in parens after the collection name. Like 
+      <code>Dream Fleet (8 cars)</code>.
+    </p>
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
