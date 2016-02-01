@@ -9,7 +9,10 @@
     <div class="page-header">
       <h1><code>localstorage</code></h1>
     </div>
-
+    <p>
+      Add localstorage to your <a href="../data-models/index.shtml#exer5">car app</a>
+      (Car 5).
+    </p>
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
