@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Store.js 1 clone</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Camels clone</h1>
+    <section>
+      <button type="button" id="add">Add</button>&nbsp;&nbsp;
+      <button type="button" id="armageddon">Armageddon</button>
+    </section>
+    <section id="herd"></section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="libs/store.js/store.min.js"></script>
+    <script>
+      var Camel = function(name, legs) {
+        this.name = name;
+        this.legs = legs;
+      };
+      var camels; //Array of camels.
+      $(document).ready(function(){
+        //Initialize page.
+        //Check for localstorage.
+        if (!store.enabled) {
+            alert(
+                'Local storage is not supported by your browser. '
+              + 'Please disable "Private Mode", or upgrade to a modern browser.'
+            );
+            return;
+        }
+        camels = store.get("camels", "");
+        if ( ! camels ) {
+          camels = new Array();
+        }
+        showCamels();
+        
+        //Add a new camel.
+        $("#add").click(function(){
+          var name=prompt("Name?");
+          var legs=prompt("Legs?");
+          camels.push(
+            new Camel(name, legs)
+          );
+          updateCamels();
+        });
+        
+        //Kill all the camels.
+        $("#armageddon").click(function(){
+          camels = new Array();
+          updateCamels();
+        });
+      });
+      
+      function showCamels() {
+        var herdHtml = "";
+        camels.forEach(function(camel) {
+          herdHtml += "Name: " + camel.name + " Legs: " + camel.legs + "<br>";
+        });
+        $("#herd").html( herdHtml );
+      }
+      
+      function updateCamels() {
+        store.set("camels", camels);
+        showCamels();
+      }
+      
+      
+    </script>
+    
+  </body>
+</html>

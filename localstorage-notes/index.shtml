@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1><code>localstorage</code> notes</h1>
+    </div>
+    <p>
+      Try <a href="t1.html" target="_blank">Camels 1</a>.
+    </p>
+    
+    <p>
+      It uses localstorage, which lets browsers store a few megabytes of information
+      for each domain. The data is shared across pages. Here's a 
+      <a href="t1-clone.html" target="_blank">clone</a> of the first page. Do they
+      share camel data?
+    </p>
+    <p>
+      The data is not shared across browsers from different vendors, however. 
+      Open a camel page in
+      Firefox and Chrome, and the data will be different.
+    </p>
+    <p>
+      <a href="https://github.com/marcuswestin/store.js" target="_blank">store.js</a>
+      is a library that makes it easy to use localstorage. This:
+    </p>
+    <pre>cats = store.get("cats", "")</pre>
+    <p>
+      ...loads the object with the key <code>cats</code> from localstorage.
+      It can be any sort of object. The camel code saves and gets arrays, but
+      it can be anything. The second
+      argument is the default. It's returned if there is no object with the
+      given key.
+    </p>
+    <pre>store.set("cats", thingToSave)</pre>
+    <p>
+      That saves <code>thingToSave</code> to localstorage.
+    </p>
+    <p>
+      <code>get</code> and <code>set</code> are all you need, if you 
+      just store an array. 
+    </p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>

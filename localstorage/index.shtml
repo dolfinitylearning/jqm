@@ -9,7 +9,7 @@
     <div class="page-header">
       <h1><code>localstorage</code></h1>
     </div>
-    <p>Content</p>
+
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
