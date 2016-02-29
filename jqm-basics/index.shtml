@@ -99,6 +99,20 @@
       Check network activity in the browser. What happens when you
       click on the link?
     </p>
+    <h2>Header buttons</h2>
+    <p>
+      Check this out:
+    </p>
+    <pre>
+      &lt;div data-role=&quot;header&quot;&gt;
+        &lt;a href=&quot;#dogs&quot;&gt;Home&lt;/a&gt;
+        &lt;h1&gt;Pigs&lt;/h1&gt;
+      &lt;/div&gt;
+    </pre>
+    <p>
+      jQM turn that link into a button. 
+      <a href="t3.html" target="_blank">Try it</a>.
+    </p>
     
     <!--#include virtual="/includes/body-end.html" -->
   </body>
