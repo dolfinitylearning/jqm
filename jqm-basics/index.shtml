@@ -9,7 +9,88 @@
     <div class="page-header">
       <h1>jQM basics</h1>
     </div>
-    <p>No content yet.</p>
+    <h2>Too easy!</h2>
+    <p>
+      jQM is easy to use. Include the JQM CSS and JS files, then use
+      HTML attributes to set up your pages. jQM will find those
+      attributes, and format your pages appropriately.
+    </p>
+    <p>
+      Mostly, you just copy-and-paste code samples. W00t!
+    </p>
+    <p>
+      Check out <a href="t1.html" target="_blank">this example</a>. Have a look
+      at the source (Ctrl+U).
+    </p>
+    <p>To make a page:</p>
+    <pre>
+      <div data-role="page">
+        ...
+      </div>
+    </pre>
+    <p>
+      (Pages in jQM are a little different from regular HTML pages. More later.)
+    </p>
+    <p>
+      Most pages have a header, content area, and footer. So:
+    </p>
+    <pre>
+      <div data-role="page">
+        <div data-role="header">
+          ...
+        </div>
+        <div data-role="content">
+          ...
+        </div>
+        <div data-role="footer">
+          ...
+        </div>
+      </div>
+    </pre>
+    <p>
+      jQM will make it look right. <a href="t1.html" target="_blank">Try it</a>
+      on a phone.
+    </p>
+    <h2>Multiple "pages" in one file</h2>
+    <p>
+      jQM lets you put more than one page in the same file. This reduces the number
+      of downloads for a mobile device, at the cost of having larger files.
+    </p>
+    <p>
+      Typical code looks like this:
+    </p>
+    <pre>
+      <div data-role="page" id="page1">
+        <div data-role="header">
+          ...
+        </div>
+        <div data-role="content">
+          ...
+        </div>
+        <div data-role="footer">
+          ...
+        </div>
+      </div>
+      <div data-role="page" id="page2">
+        <div data-role="header">
+          ...
+        </div>
+        <div data-role="content">
+          ...
+        </div>
+        <div data-role="footer">
+          ...
+        </div>
+      </div>
+    </pre>
+    <p>
+      Each page has a unique id. You make links like this:
+    </p>
+    <pre>
+      <a href="#page2">link text</a>
+    </pre>
+    
+    
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
