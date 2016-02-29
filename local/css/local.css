@@ -2,5 +2,5 @@
 Local styles.
 */
 .local-bordered {
-  border: ipx solid black;
+  border: 1px solid black;
 }
