@@ -119,8 +119,12 @@
     <h2>iPhone back buttons</h2>
     <p>
       Android phones have back buttons. iPhones don't (I'm told). 
-      We can add them.
+      You can add them:
     </p>
+    <pre>
+          &lt;div data-role=&quot;page&quot; id=&quot;cats&quot; data-add-back-btn=&quot;true&quot;&gt;
+    </pre>
+    
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
