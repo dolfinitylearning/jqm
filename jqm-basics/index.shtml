@@ -90,7 +90,7 @@
       &lt;a href=&quot;#page2&quot;&gt;link text&lt;/a&gt;
     </pre>
     <p>
-      Try <a href="t1.html" target="_blank">this page</a>.
+      Try <a href="t2.html" target="_blank">this page</a>.
     </p>
     <p>
       Q: Does the browser's back button work as you expect? 
