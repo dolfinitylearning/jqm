@@ -22,16 +22,13 @@
           </ul>
         </div>        
         <p>
-          We have animals.
+          We have animals. Click one, or type to filter by animal name.
         </p>
         <ul data-role="listview" data-inset="true" data-filter="true">
           <li><a href="#dogs">Dogs</a></li>
           <li><a href="#cats">Cats</a></li>
           <li><a href="#pigs">Pigs</a></li>
         </ul>        
-        <p>
-          And then there are <a href="#pigs">pigs</a>.
-        </p>
       </div>
       <div data-role="footer">
         <h4>&copy; Dogs</h4>
@@ -97,6 +94,62 @@
           Pigs are tasty!
         </p>
       </div>
+      <div data-role="footer">
+        <h4>&copy; Dogs</h4>
+      </div>
+    </div>
+    <div data-role="page" id="about">
+      <div data-role="header">
+        <h1>About us</h1>
+      </div>
+      <div data-role="content">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#animals">Animals</a></li>
+            <li><a href="#about" class="ui-btn-active">About us</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>        
+        <p>
+          We have animals. That's all.
+        </p>
+      </div>
+      <div data-role="footer">
+        <h4>&copy; Dogs</h4>
+      </div>
+    </div>
+    <div data-role="page" id="contact">
+      <div data-role="header">
+        <h1>Contact</h1>
+      </div>
+      <div data-role="content">
+        <div data-role="navbar">
+          <ul>
+            <li><a href="#animals">Animals</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#contact" class="ui-btn-active">Contact</a></li>
+          </ul>
+        </div>        
+        <p>
+          Call <a href="tel:+16666666666">666-666-6666</a>, or fill in this form.
+        </p>
+        <form action="" method="post">
+          <div data-role="fieldcontain">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" value="" />
+          </div>
+          <div data-role="fieldcontain">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" value="" />
+          </div>
+          <div data-role="fieldcontain">
+            <label for="message">Message:</label>
+            <textarea id="message"></textarea>
+          </div>
+          <div data-role="fieldcontain">
+            <input type="submit" name="submit" value="Send" />
+          </div>
+        </form>      </div>
       <div data-role="footer">
         <h4>&copy; Dogs</h4>
       </div>
