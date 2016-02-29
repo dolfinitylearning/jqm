@@ -113,7 +113,14 @@
       jQM turn that link into a button. 
       <a href="t3.html" target="_blank">Try it</a>.
     </p>
-    
+    <p>
+      How easy is <em>that</em>?
+    </p>
+    <h2>iPhone back buttons</h2>
+    <p>
+      Android phones have back buttons. iPhones don't (I'm told). 
+      We can add them.
+    </p>
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
