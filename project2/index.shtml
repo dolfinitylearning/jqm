@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Project 2</h1>
+    </div>
+    <p>
+      Write a Web app that tracks ticket sales at a zoo. Tickets for 
+      adults cost $10 each. Tickets for kids cost $6 each. 
+    </p>
+    <p>  
+      Client-side only. Use jQuery. Use store.js to persist the data.
+    </p>
+    <p>
+      After adding some data, the app might look like this:
+    </p>
+    <p>
+      <img src="screen1.png" alt="Output">
+    </p>
+    
+    
+    
+    
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
