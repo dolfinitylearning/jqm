@@ -20,7 +20,7 @@
       After adding some data, the app might look like this:
     </p>
     <p>
-      <img src="screen1.png" class="img-responsive bordered" alt="Output">
+      <img src="screen1.png" class="img-responsive local-bordered" alt="Output">
     </p>
     
     
