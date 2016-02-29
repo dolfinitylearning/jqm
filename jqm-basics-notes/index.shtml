@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>jQM basics</h1>
+    </div>
+    <h2>Too easy!</h2>
+    <p>
+      jQM is easy to use. Include the JQM CSS and JS files, then use
+      HTML attributes to set up your pages. jQM will find those
+      attributes, and format your pages appropriately.
+    </p>
+    <p>
+      Mostly, you just copy-and-paste code samples. W00t!
+    </p>
+    <p>To make a page:</p>
+    <pre>
+      &lt;div data-role=&quot;page&quot;&gt;
+        ...
+      &lt;/div&gt;
+    </pre>
+    <p>
+      (Pages in jQM are a little different from regular HTML pages. More later.)
+    </p>
+    <p>
+      Most pages have a header, content area, and footer. So:
+    </p>
+    <pre>
+      &lt;div data-role=&quot;page&quot;&gt;
+        &lt;div data-role=&quot;header&quot;&gt;
+          ...
+        &lt;/div&gt;
+        &lt;div data-role=&quot;content&quot;&gt;
+          ...
+        &lt;/div&gt;
+        &lt;div data-role=&quot;footer&quot;&gt;
+          ...
+        &lt;/div&gt;
+      &lt;/div&gt;
+    </pre>
+    <h2>Multiple "pages" in one file</h2>
+    <p>
+      jQM lets you put more than one page in the same file. This reduces the number
+      of downloads for a mobile device, at the cost of having larger files.
+    </p>
+    <p>
+      Typical code looks like this:
+    </p>
+    <pre>
+      &lt;div data-role=&quot;page&quot; id=&quot;page1&quot;&gt;
+        &lt;div data-role=&quot;header&quot;&gt;
+          ...
+        &lt;/div&gt;
+        &lt;div data-role=&quot;content&quot;&gt;
+          ...
+        &lt;/div&gt;
+        &lt;div data-role=&quot;footer&quot;&gt;
+          ...
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div data-role=&quot;page&quot; id=&quot;page2&quot;&gt;
+        &lt;div data-role=&quot;header&quot;&gt;
+          ...
+        &lt;/div&gt;
+        &lt;div data-role=&quot;content&quot;&gt;
+          ...
+        &lt;/div&gt;
+        &lt;div data-role=&quot;footer&quot;&gt;
+          ...
+        &lt;/div&gt;
+      &lt;/div&gt;
+    </pre>
+    <p>
+      Each page has a unique id. You make links like this:
+    </p>
+    <pre>
+      &lt;a href=&quot;#page2&quot;&gt;link text&lt;/a&gt;
+    </pre>
+    <h2>Header buttons</h2>
+    <p>
+      Check this out:
+    </p>
+    <pre>
+      &lt;div data-role=&quot;header&quot;&gt;
+        &lt;a href=&quot;#dogs&quot;&gt;Home&lt;/a&gt;
+        &lt;h1&gt;Pigs&lt;/h1&gt;
+      &lt;/div&gt;
+    </pre>
+    <p>
+      jQM turns that link into a button. 
+    </p>
+    <p>
+      How easy is <em>that</em>?
+    </p>
+    <h2>iPhone back buttons</h2>
+    <p>
+      Android phones have back buttons. iPhones don't (I'm told). 
+      You can add them:
+    </p>
+    <pre>
+          &lt;div data-role=&quot;page&quot; id=&quot;cats&quot; data-add-back-btn=&quot;true&quot;&gt;
+    </pre>
+    <h2>Navbars</h2>
+    <p>
+      They're crazy easy to make!
+    </p>
+    <pre>
+        &lt;div data-role=&quot;navbar&quot;&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;...&quot;&gt;...&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;...&quot; class=&quot;ui-btn-active&quot;&gt;...&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;       
+    </pre>
+    
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>

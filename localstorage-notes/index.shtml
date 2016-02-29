@@ -44,6 +44,14 @@
       <code>get</code> and <code>set</code> are all you need, if you 
       just store an array. 
     </p>
+    
+    <p>
+      Now try <a href="todo/index.html" target="_blank">the todo app</a>.
+      It's a simple app for storing tasks. Check out the code, and
+      see how it works.
+    </p>
+    
+    
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Todo</h1>
+    <section id="controls">
+      <button id="newTodo" type="button">Add</button>
+    </section>
+    <section id="todos"></section>
+    <script src="js/libs/jquery/jquery.js"></script>
+    <script src="js/libs/store.js/store.min.js"></script>
+    <script>
+      //**************** TODO ITEM *********************
+      /**
+       * Construct a new Todo.
+       * @param {Integer} id Id
+       * @param {String} text Task description
+       * @returns {Todo} New Todo.
+       */
+      var Todo = function(id, text) {
+        this.id = id;
+        this.text = text;
+      }
+      /**
+       * Render a Todo.
+       * @returns {String} HTML for the new item.
+       */
+      Todo.prototype.render = function() {
+        var html = "<p class='todo' data-id='" + this.id + "'>"
+            + "<img class='delete' src='images/delete.png' alt='Delete' title='Delete'>"
+            + this.text + "</p>";
+        return html;
+      };
+      /**
+       * Delete the visual display of the Todo.
+       */
+      Todo.prototype.deleteView = function() {
+        $("p.todo[data-id='" + this.id  + "']").remove();
+      };
+      
+      
+      //**************** SET OF TODOS *********************
+      var todos = {
+        list: null
+      };
+      /**
+       * Load the todos from storage.
+       */
+      todos.load = function() {
+        var storedTodos = store.get("todos", new Array());
+        todos.list = new Array();
+        storedTodos.forEach(function(storedTodo) {
+          todos.list.push( new Todo( storedTodo.id, storedTodo.text ) );
+        });
+      };
+      /**
+       * Save the todos to storage.
+       */
+      todos.store = function() {
+        store.set("todos", todos.list);
+      };
+      /**
+       * Create a new Todo and add it to the set.
+       * @param {String} todoText Task description.
+       */
+      todos.addNewTodo = function(todoText) {
+        //Create the new object, with an available id.
+        var newTodo = new Todo( todos.getNewId(), todoText );
+        //Add to array.
+        todos.list.push( newTodo );
+        //Store set to storage.
+        todos.store();
+        //Render the new Todo.
+        $("#todos").append( newTodo.render() );
+      };
+      /**
+       * Find an id not in use.
+       * @returns {Integer} New id.
+       */
+      todos.getNewId = function() {
+        var maxIdInUse = 0;
+        //Loop across all Todos.
+        todos.list.forEach(function(todo){
+          if ( todo.id > maxIdInUse ) {
+            maxIdInUse = todo.id;
+          }
+        });
+        return maxIdInUse + 1;
+      };
+      /**
+       * Delete Todo with the given id.
+       * @param {Integer} idToDelete Id of the Todo to delete.
+       * @returns {undefined}
+       */
+      todos.deleteTodo = function(idToDelete) {
+        todos.list.forEach(function(todo, arrayIndex){
+          if ( todo.id == idToDelete ) {
+            //Remove view.
+            todo.deleteView();
+            //Remove data item.
+            todos.list.splice(arrayIndex, 1);
+            //Update the data store.
+            todos.store();
+          }
+        });
+      };
+      /**
+       * Render all the Todos.
+       * @returns {String} HTML to show all the Todos.
+       */
+      todos.render = function() {
+        var todosHtml = "";
+        todos.list.forEach(function(todo) {
+          todosHtml += todo.render();
+        });
+        $("#todos").html( todosHtml );
+      };
+      
+      $(document).ready(function(){
+        if (!store.enabled) {
+            alert(
+                'Local storage is not supported by your browser. '
+              + 'Please disable "Private Mode", or upgrade to a modern browser.'
+            );
+            return;
+        }
+        todos.load();
+        todos.render();
+        
+        $("#newTodo").click(function(){
+          var text = prompt("Task?");
+          if ( text ) {
+            todos.addNewTodo( text );
+          }
+        });
+        
+        
+        $("#todos").on("click", "img.delete", function(){
+          if ( confirm("Are you sure?") ) {
+            var id = $(this).closest("p").data("id");
+            todos.deleteTodo(id);
+            todos.store();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
