@@ -17,9 +17,9 @@
       </li>
       <li>
         <a href="t2.html" target="_blank">Sample 2</a><br><br>
-        Q: Does the browser's back button work as you expect?<br><br> 
+        <div style="font-size: small"> Q: Does the browser's back button work as you expect?<br><br> 
         Check network activity in the browser. What happens when you
-        click on the link?
+        click on the link?<br></div>
       </li>
       <li>
         <a href="t3.html" target="_blank">Sample 3</a>
