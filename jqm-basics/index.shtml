@@ -24,9 +24,9 @@
     </p>
     <p>To make a page:</p>
     <pre>
-      <div data-role="page">
+      &lt;div data-role=&quot;page&quot;&gt;
         ...
-      </div>
+      &lt;/div&gt;
     </pre>
     <p>
       (Pages in jQM are a little different from regular HTML pages. More later.)
@@ -35,17 +35,17 @@
       Most pages have a header, content area, and footer. So:
     </p>
     <pre>
-      <div data-role="page">
-        <div data-role="header">
+      &lt;div data-role=&quot;page&quot;&gt;
+        &lt;div data-role=&quot;header&quot;&gt;
           ...
-        </div>
-        <div data-role="content">
+        &lt;/div&gt;
+        &lt;div data-role=&quot;content&quot;&gt;
           ...
-        </div>
-        <div data-role="footer">
+        &lt;/div&gt;
+        &lt;div data-role=&quot;footer&quot;&gt;
           ...
-        </div>
-      </div>
+        &lt;/div&gt;
+      &lt;/div&gt;
     </pre>
     <p>
       jQM will make it look right. <a href="t1.html" target="_blank">Try it</a>
@@ -87,9 +87,18 @@
       Each page has a unique id. You make links like this:
     </p>
     <pre>
-      <a href="#page2">link text</a>
+      &lt;a href=&quot;#page2&quot;&gt;link text&lt;/a&gt;
     </pre>
-    
+    <p>
+      Try <a href="t1.html" target="_blank">this page</a>.
+    </p>
+    <p>
+      Q: Does the browser's back button work as you expect? 
+    </p>
+    <p>
+      Check network activity in the browser. What happens when you
+      click on the link?
+    </p>
     
     <!--#include virtual="/includes/body-end.html" -->
   </body>
