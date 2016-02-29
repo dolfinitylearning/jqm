@@ -10,6 +10,9 @@
       <h1>Project 2</h1>
     </div>
     <p>
+      You can do this project alone, or with one other human in the class. 
+    </p>
+    <p>
       Write a Web app that tracks ticket sales at a zoo. Tickets for 
       adults cost $10 each. Tickets for kids cost $6 each. 
     </p>
@@ -22,10 +25,55 @@
     <p>
       <img src="screen1.png" class="img-responsive local-bordered" alt="Output">
     </p>
-    
-    
-    
-    
+    <p>
+      The delete button deletes an entry.
+    </p>
+    <p>
+      The New button adds a new entry. Assume that the user does not make
+      any mistakes.
+      You can just use <code>prompt()</code>, if you want.
+    </p>
+    <p>
+      <img src="prompt.png" class="img-responsive local-bordered" alt="Prompt">
+    </p>
+    <p>
+      New entries don't have to appear in the right order, sorted by day.
+    </p>
+    <p>
+      When you add or remove an entry, the stats update automatically.
+    </p>
+    <p>
+      Add appropriate comments, as in the samples on this site.
+    </p>
+    <p>
+      At the top of the page, show the name(s) of the human(s) who 
+      did the project.
+    </p>
+    <p>
+      If you do the basics described so far, you will get 15 out of 20. 
+      For extra points:
+    </p>
+    <ul>
+      <li>
+        When new data is added, show it in day order.
+      </li>
+      <li>
+        When the user clicks New, show a form at the bottom of the page,
+        instead of using <code>prompt()</code>. Hide the form after the data is entered.
+      </li>
+      <li>
+        Add input validation. Numeric data only, no values less than zero.
+      </li>
+      <li>
+        Add an edit button to each entry. When the user clicks it, replace
+        the data values with form fields. Hide the Delete and Edit
+        buttons, and show Save and Cancel buttons instead. (2 points)
+      </li>
+    </ul>
+    <p>
+      Submit the URL of your page in Moodle. List the extra things you did, 
+      if any. Type the name(s) of the human(s) who did the project.
+    </p>
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
