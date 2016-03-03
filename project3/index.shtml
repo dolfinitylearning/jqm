@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Project 3</h1>
+    </div>
+    <p>
+      You can do this project alone, or with one other human in the class. 
+    </p>
+    <p>
+      Write a game called Wordz using jQM and store.js. The game gives users 
+      a word, and waits until they click on the definition. It starts like this:
+    </p>
+    <p>  
+      <img src="screen1.png" class="img-responsive local-bordered" alt="Output">
+    </p>
+    <p>
+      The user clicks (presses) the definition they think is right. If it is
+      right, the app tells them, and increases the score.
+    </p>
+    <p>
+      <img src="right.png" class="img-responsive local-bordered" alt="right">
+    </p>
+    <p>
+      If the user gets it wrong, the app tells them, but doesn't increase the
+      score. For example:
+    </p>
+    <p>
+      <img src="wrong.png" class="img-responsive local-bordered" alt="Wrong">
+    </p>
+    <p>
+      Once they have chosen a definition:
+    </p>
+    <ul>
+      <li>
+        The user can move on to the next question.
+      </li>
+      <li>
+        The definition links no longer work. That is, after answering, 
+        pressing one of the other links does nothing.
+      </li>
+    </ul>
+    <p>
+      Add appropriate comments in your code, as in the samples on this site.
+    </p>
+    <p>
+      Submit your URL in Moodle, with the name(s) of the human(s) who 
+      did the project.
+    </p>
+    <p>
+      If you do the basics described so far, you will get 24 out of 30. 
+      For extra points:
+    </p>
+    <ul>
+      <li>
+        Rather than one score, keep track of two: number right, and number wrong. 
+         (1 point)
+      </li>
+      <li>
+        Add an option to erase the current score(s). Maybe a Reset button in the
+        footer. Confirm that this is what the user wants to do.( 1 point)
+      </li>
+      <li>
+        If the user gets a question right, show a green check mark. If s/he gets
+        it wrong, show a red cross, put a line through the wrong answers,
+        leaving the right one. (Or some other gnarly effect.) (2 points)
+      </li>
+      <li>
+        Add an opening screen, giving the name of the app, and the people
+        who wrote it. With some images. And a start button, or some such. (1 point)
+      </li>
+      <li>
+        Make it look cool, with brighter colors. Try the theme roller at the
+        jQM site, or liberate an already-made theme. Add a fun background image. 
+        (2 points)
+      </li>
+      <li>
+        Add ads on each question, or interstitials (between questions). 
+        Make whatever ads you want. (2 points)
+      </li>
+      <li>
+        Add a Hint button that hides one of the wrong answers. But the user's
+        score won't go up if s/he uses the hint button. (2 points)
+      </li>
+      <li>
+        Play different sounds for right and wrong answers. Have the
+        app choose between a few random sounds. (2 points)
+      </li>
+    </ul>
+    <p>
+      Hints:
+    </p>
+    <ul>
+      <li>
+        I created objects for ten items, each with a word and its definition.
+        To create a question, I picked four of the definitions at random, 
+        then showed the word for one of them. You can do it differently, 
+        if you want.
+      </li>
+      <li>
+        I used Underscore, a library of useful JS functions. One of them
+        is <code>_.sample()</code>, which chooses random items from 
+        an array. You can do it differently, 
+        if you want.
+      </li>
+      <li>
+        You can use a flag (a variable that's either true or false) to
+        stop processing presses after the first one. 
+        In the click event, exit if the flag is true. Then set the flag to true,
+        and do the processing. Reset the flag when when user asks for a new 
+        question.
+      </li>
+      <li>
+        If you want, add the definitions into the program. No need
+        to contact a server and download a list, though you can if you want
+        to.
+      </li>
+        
+    </ul>
+    
+    
+    
+    <p>
+      Submit the URL of your page in Moodle. List the extra things you did, 
+      if any. Type the name(s) of the human(s) who did the project.
+    </p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
