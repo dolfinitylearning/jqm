@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Array of Events</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="libs/store.js/store.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Array of Events</h1>
+    <p>(Look at my source code.)</p>
+    <section id="output"></section>
+    <section id="controls">
+      <p><button type="button" id="add-event">Add</button></p>
+    </section>
+    <script>
+      //Define the Event class.
+      var Event = function(day, name, notes) {
+        this.day = day
+        this.name = name;
+        this.notes = notes;
+      }
+      
+      //render() method return the HTML that will display one event.
+      Event.prototype.render = function() {
+        var output = 
+              "<div data-day='" + this.day + "' class='event'>"
+            +   "<p>Day: " + this.day + "</p>"
+            +   "<p>Name:" + this.name  + "</p>"
+            +   "<p>Notes:" + this.notes  + "</p>"
+            +   "<p><button type='button' class='delete'>Delete</button></p>"
+            + "</div>";
+        //IMPORTANT! The day is used to set the data-day property of the <div>.
+        //This lets the code tied to the delete button figure out what 
+        //day the button is for.
+        return output;
+      };
+      
+      //Array for events.
+      var events = new Array();
+      
+      //Add a event, using day as the index.
+      events.add = function( eventToAdd ) {
+        events[ eventToAdd.day ] = eventToAdd;
+      };
+      
+      //Remove an event.
+      events.delete = function( day ) {
+        delete events[ day ];
+      };
+      
+      //Render the events.
+      events.render = function() {
+        var htmlOut = "";
+        //Loop across the array members.
+        events.forEach( function( event ) {
+          if ( event ) { //IMPORTANT! Make sure the event exists.
+            htmlOut += event.render();
+          }
+        });
+        return htmlOut;
+      };
+      
+      $(document).ready(function() {
+        //Start running here when the page is loaded.
+        //Load saved events form localstorage, into events array..
+        loadEvents();
+        //Show them.
+        showEvents();
+        //Set up the add button. IMPORTANT! Do this inside document.ready().
+        $("#add-event").click(function(){
+          addEvent();
+        });
+        //Set up the delete buttons. IMPORTANT! Do this insude document.ready().
+        //Tie the code to a browser object that contains all the delete
+        //buttons. That way, the code will still trigger on new delete
+        //buttons that are added as the user adds events.
+        $("#output").on("click", "button.delete", function() {
+          if ( confirm("Are you sure?") ) {
+            //We need to know which day's button was clicked. The <div> containing
+            //the clicked button has the day in data-day (see Event.render()). 
+            //If we find the div, we can get the day.
+            var day = $(this).closest("div").data("day");
+              //$(this) is the thing that was clicked (a delete button).
+              //.closest("div") is the closest parent of the button that is 
+              //a div. Check Event.render(), to see that each button is in a div.
+              //data("day") is the value of the data-day property.
+            //Kill the event in the collection.
+            events.delete(day);
+            //Save all event data to localstorage.
+            saveEvents();
+            //Refresh the display.
+            showEvents();
+          } //End confirm.
+        }); //End click on button.delete.
+      }); //End document ready.
+      
+      //Show all the events. Erases the display that is already there.
+      function showEvents() {
+        //Get the HTML that will show the events.
+        var htmlToShowEvents = events.render();
+        //Show the HTML in the browser. Replaces what is already in #output.
+        $("#output").html( htmlToShowEvents );
+      }
+      
+      //User wants to add a new event.
+      function addEvent() {
+        //Ask the user to describe the event.
+        var day = prompt("Day?");
+        var name = prompt("Name?");
+        var notes = prompt("Notes?");
+        //Create a new Event object.
+        var newEvent = new Event( day, name, notes );
+        //Add the new event to the events collection.
+        events.add( newEvent );
+        //Save all event data to localstorage.
+        saveEvents();
+        //Refresh the display.
+        showEvents();
+      }
+
+      //Load saved events from localstorage.
+      function loadEvents() {
+        //Get data from store.js associated with the key "events".
+        var savedEvents = store.get( "events", "" );
+        if ( ! savedEvents ) {
+          savedEvents = new Array();
+        }
+        //Elements in savedEvents aren't Event objects yet. They don't
+        //have .render(). Grab each element from savedEvents, make it
+        //an Event object, and add it to the events collection.
+        savedEvents.forEach(function(eventData){
+          if ( eventData ) { //IMPORTANT! Skip empty elements.
+            events.add( 
+              new Event( 
+                eventData.day, 
+                eventData.name,
+                eventData.notes
+              )
+            ); //End call to events.add
+          } //End if
+        }); //End foreach
+      } //End loadevents()
+      
+      //Save events data to localstorage.
+      function saveEvents() {
+        store.set("events", events);
+      }
+  
+    </script>
+  </body>
+</html>

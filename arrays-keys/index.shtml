@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Arrays and keys</h1>
+    </div>
+    <p>
+      Suppose you want to store data about events. Here's some code.
+    </p>
+<pre>      var Event = function(day, name, notes) {
+        this.day = day
+        this.name = name;
+        this.notes = notes;
+      }</pre>
+    <p>
+      Let's use an array called <code>events</code> to store data about
+      a bunch of events. Notice there's no <code>id</code> in <code>Event</code>
+      objects. There's just <code>day</code>, <code>name</code>, and <code>notes</code>.
+    </p>
+    <p>
+      We can use <code>day</code> as the id. So the event for day 3 is in
+      <code>events[3]</code>. The event for day 17 is in <code>events[17]</code>.
+      Of course, there is only one event per day in this scenario.
+    </p>
+    <p>
+      We need to do things a little differently. Try 
+      <a href='examples/t1.html' target="_blank">this example</a>. Add some
+      events, delete some events. 
+    </p>
+    <p class="lead">Adding/removing events</p>
+<pre>      events.add = function( eventToAdd ) {
+        events[ eventToAdd.day ] = eventToAdd;
+      };</pre>
+    <p>
+      The code uses the day as the index for the <code>events</code> array.
+    </p>
+<pre>      events.delete = function( day ) {
+        delete events[ day ];
+      };</pre>
+    <p>
+      That code removes the day at <code>day</code> in the array.
+    </p>
+    <p class="lead">Rendering the collection</p>
+    <p>
+      <code>events</code> is the collection of all the events. Code to show it:
+    </p>
+<pre>      events.render = function() {
+        var htmlOut = "";
+        //Loop across the array members.
+        events.forEach( function( event ) {
+          if ( event ) { //IMPORTANT! Make sure the event exists.
+            htmlOut += event.render();
+          }
+        });
+        return htmlOut;
+      };</pre>
+    <p>
+      When you use the day as an index, there'll be empty array elements for some
+      days. That's what <code>if ( event ) {</code> is for. It skips empty
+      array elements.
+    </p>
+    <p class="lead">Loading events from <code>localstorage</code></p>
+    <p>
+      <code>localstorage</code> can only contain simple objects. They have data 
+      only. They don't have their own functions, like <code>render()</code>.
+    </p>
+    <p>
+      When you load the event data, you need to create a new <code>Day</code>
+      object for each item in <code>localstorage</code>.
+    </p>
+<pre>      function loadEvents() {
+        //Get data from store.js associated with the key "events".
+        var savedEvents = store.get( "events", "" );
+        if ( ! savedEvents ) {
+          savedEvents = new Array();
+        }
+        //Elements in savedEvents aren't Event objects yet. They don't
+        //have .render(). Grab each element from savedEvents, make it
+        //an Event object, and add it to the events collection.
+        savedEvents.forEach(function(eventData){
+          if ( eventData ) { //IMPORTANT! Skip empty elements.
+            events.add( 
+              new Event( 
+                eventData.day, 
+                eventData.name,
+                eventData.notes
+              )
+            ); //End call to events.add
+          } //End if
+        }); //End foreach
+      } //End loadevents()</pre>
+    <p>
+      There's <code>if ( event ) {</code> again. It skips empty array elements.
+    </p>
+    
+    
+    <p class="lead">The Delete buttons</p>
+    <p>
+      Here's some events.
+    </p>
+    <p>
+      <img src="events.png" alt="Events">
+    </p>
+    <p>
+      Here's HTML that shows the events:
+    </p>
+<pre>&lt;section id=&quot;output&quot;&gt;
+  &lt;div data-day=&quot;1&quot; class=&quot;event&quot;&gt;
+    &lt;p&gt;Day: 1&lt;/p&gt;
+    &lt;p&gt;Name:2222&lt;/p&gt;
+    &lt;p&gt;Notes:4444&lt;/p&gt;
+    &lt;p&gt;
+      &lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div data-day=&quot;3&quot; class=&quot;event&quot;&gt;
+    &lt;p&gt;Day: 3&lt;/p&gt;
+    &lt;p&gt;Name:2324&lt;/p&gt;
+    &lt;p&gt;Notes:24234234234234&lt;/p&gt;
+    &lt;p&gt;
+      &lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+    <p>Look at the HTML for showing the delete buttons:</p>
+<pre>&lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+...
+&lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;</pre>
+    <p>
+      The code for the buttons is exactly the same! When the user clicks
+      a delete button how does the program know
+      which button was clicked? If it can't tell, it can't delete the right
+      event.
+    </p>
+    <p>
+      Check out the divs that contain the buttons:
+    </p>
+<pre>  &lt;div data-day=&quot;1&quot; class=&quot;event&quot;&gt;
+    ...
+	  &lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+    ...
+  &lt;/div&gt;
+  &lt;div data-day=&quot;3&quot; class=&quot;event&quot;&gt;
+    ...
+	  &lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+    ...
+  &lt;/div&gt;</pre>    
+    <p>
+      The divs the buttons are in have a data-day property. So when the
+      user clicks a delete button, the logic could
+      be something like this:
+    </p>
+    <pre>For the button that was clicked,...
+Find the div that is the parent of that button, then...
+Get the day from the divs data-day property.</pre>
+    <p>
+      That's what this does:
+    </p>
+    <pre>        $("#output").on("click", "button.delete", function() {
+          if ( confirm("Are you sure?") ) {
+            var day = $(this).closest("div").data("day");
+            //Kill the event in the collection.
+            events.delete(day);
+            ...
+          } //End confirm.
+        }); //End click on button.delete.
+</pre>      
+    <p>
+      <code>$(this)</code> is the button that the user clicked. 
+      <code>closest("div")</code> finds its closest parent that is a div.
+      <code>data("day")</code> gets the data-day property.
+    </p>
+    <p class="lead">Capturing delete button events</p>
+    <p>
+      How to bind code to the click events of the delete buttons? 
+      You might think it's this:
+    </p>
+    <pre>$("button.delete").click(function(){</pre>   
+    <p>
+      Makes sense. Run that code in document.ready(), and it will attach
+      code to all the delete buttons that exist.
+    </p>
+    <p>
+      The words "that exist" are the problem. When the user adds a new event, 
+      the program creates a new delete button for the event. The code that
+      adds events to delete buttons has already been run. Unless you run it
+      again, it won't have code bound to it.
+    </p>
+    <p>
+      ARGH! Computers suck.
+    </p>
+    <p>
+      The easiest solution is to attach code to something that <em>contains</em>
+      all the delete buttons that are ever created. Here's part of the
+      event HTML again:
+    </p>
+<pre>&lt;section id=&quot;output&quot;&gt;
+  &lt;div data-day=&quot;1&quot; class=&quot;event&quot;&gt;
+    ...
+	  &lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+    ...
+  &lt;/div&gt;
+  &lt;div data-day=&quot;3&quot; class=&quot;event&quot;&gt;
+    ...
+	  &lt;button type=&quot;button&quot; class=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+    ...
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+    <p>
+      All of the delete buttons are inside the section with the id <code>output</code>. 
+      So let's do this:
+    </p>
+    <pre>$("#output").on("click", "button.delete", function() {</pre>
+    <p>
+      jQuery will pass click events on to the buttons. W00t!
+    </p>
+    
+    
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
