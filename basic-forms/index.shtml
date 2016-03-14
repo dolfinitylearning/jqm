@@ -18,7 +18,7 @@
     <p>
       The button runs JavaScript code like this:
     </p>
-    <pre>console.log("G'day!);</pre>
+    <pre>console.log("G'day!");</pre>
     <p>
       Try it. It's the first form on 
       <a href="t1.html" target="_blank">this page</a>. Open the debugger, and
