@@ -9,7 +9,7 @@
     <div class="page-header">
       <h1>Basic forms</h1>
     </div>
-    <p>No content yet.</p>
+    <p>Here's code for a form.</p>
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>
