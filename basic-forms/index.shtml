@@ -10,6 +10,68 @@
       <h1>Basic forms</h1>
     </div>
     <p>Here's code for a form.</p>
+    <pre>&lt;form method=&quot;get&quot;&gt;
+    Name: &lt;input type=&quot;text&quot; size=&quot;20&quot; name=&quot;name&quot;&gt;&lt;br&gt;&lt;br&gt;
+    Spleen count: &lt;input type=&quot;text&quot; size=&quot;20&quot; name=&quot;spleens&quot;&gt;&lt;br&gt;
+    &lt;button&gt;Process&lt;/button&gt;
+&lt;/form&gt;</pre>
+    <p>
+      The button runs JavaScript code like this:
+    </p>
+    <pre>console.log("G'day!);</pre>
+    <p>
+      Try it. It's the first form on 
+      <a href="t1.html" target="_blank">this page</a>. Open the debugger, and
+      show the console. Put some data in the form, and click the button. 
+      What happens?
+    </p>
+    <p>
+      Forms were originally created to send data to a server, by attaching the
+      data to a URL. The browser sends the URL (with the data) to a server.
+      The server grabs the data, processes it (e.g., storing it in a database),
+      and returns the contents of the page at the URL.
+    </p>
+    <p>
+      Works fine, except when all your processing is on the client side. You 
+      need to tell the browser not to jump to a new URL.
+    </p>
+    <p>
+      There are two ways to do this. First, tell the browser that the
+      button is just a button, and doesn't submit forms.
+    </p>
+    <pre>&lt;form method=&quot;get&quot;&gt;
+    Name: &lt;input type=&quot;text&quot; size=&quot;20&quot; name=&quot;name&quot;&gt;&lt;br&gt;&lt;br&gt;
+    Spleen count: &lt;input type=&quot;text&quot; size=&quot;20&quot; name=&quot;spleens&quot;&gt;&lt;br&gt;
+    &lt;button&gt; type=&quot;button&quot; Process&lt;/button&gt;
+&lt;/form&gt;</pre>
+    <p>
+      That's the second form on the 
+      <a href="t1.html" target="_blank">test page</a>. Try it.
+    </p>
+    <p>
+      Another way is to explicitly return <code>false</code> from the button's
+      processing code. Like this:
+    </p>
+    <pre>console.log("G'day!);
+return false;</pre>
+    <p>
+      Browsers don't submit form data when they get <code>false</code> back from
+      their processing code. That's how you get client-side validation to work. 
+      For example, this
+      might be in the code attached to the button:
+    </p>
+    <pre>if ( spleenCount > 7 ) {
+  alert("Sorry, can't have more than 7 spleens.");
+  return false;
+}
+</pre>
+    <p>
+      The third form on the 
+      <a href="t1.html" target="_blank">test page</a> uses the same HTML as 
+      the first form. A button tag, without <code>type="button"</code>. 
+      However, the button's code returns <code>false</code>.
+      Try it.
+    </p>    
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>

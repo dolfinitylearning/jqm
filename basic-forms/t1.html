@@ -8,6 +8,50 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div>Form - Forward data to self</div>
+    <h1>Form - Forward data to self</h1>
+    <p>
+      Fill in the form and submit. The data will be sent back to this page. 
+      Watch the URL. Also, use a debugger and watch for network activity.
+    </p>
+    <p>
+      The button type is not specified, so it's treated as a form submit.
+    </p>
+    <form method="get">
+      Name: <input type="text" size="20" name="name"><br><br>
+      Spleen count: <input type="text" size="20" name="spleens"><br>
+      <button data-order="1">Button 1</button>
+    </form>
+
+    <h1>Form - Add button type</h1>
+    <p>
+      Same, but the button type is set to button.
+    </p>
+    <form method="get">
+      Name: <input type="text" size="20" name="name"><br><br>
+      Spleen count: <input type="text" size="20" name="spleens"><br>
+      <button data-order="2" type="button">Button 2</button>
+    </form>
+
+    <h1>Form - Return false</h1>
+    <p>
+      Same as first, but button code returns false.
+    </p>
+    <form method="get">
+      Name: <input type="text" size="20" name="name"><br><br>
+      Spleen count: <input type="text" size="20" name="spleens"><br>
+      <button data-order="3" data-return-false="aye">Button 3</button>
+    </form>    
+    
+    <script>
+      $(document).ready(function(){
+        $("button").click(function(){
+          var message = "Button " + $(this).data("order") + " clicked.";
+          console.log(message);
+          if ( $(this).data("return-false") == "aye" ) {
+            return false;
+          }
+        });
+      });
+    </script>
   </body>
 </html>
