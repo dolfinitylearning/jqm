@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dogs</title>
+    <meta name="viewport" content="width=device-width, initialscale=
+          1">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  <style>
+    .animal {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+  </style>
+    
+  </head>
+  <body>
+    <div data-role="page">
+      <div data-role="header">
+        <h1>Animals</h1>
+      </div>
+      <div data-role="content">
+        <p>
+          Click on the animals.
+        </p>
+        <div>
+          <div data-animal="dog" class="animal">
+            <img src="images/dog.jpg">
+          </div>
+          <div data-animal="cow" class="animal">
+            <img src="images/cow.jpg">
+          </div>
+        </div>
+        <div>
+          <div data-animal="emu" class="animal">
+            <img src="images/emu.jpg">
+          </div>
+          <div data-animal="cat" class="animal on-right">
+            <img src="images/cat.jpg">
+          </div>
+        </div>
+      </div>
+      <div data-role="footer">
+        <h4>&copy; Nobody</h4>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function(){
+        $(".animal").click(function(){
+          alert( $(this).data("animal") );
+        });
+      });
+    </script>
+      
+  </body>
+</html>
