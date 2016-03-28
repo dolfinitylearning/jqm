@@ -221,6 +221,45 @@ Get the day from the divs data-day property.</pre>
     </p>
     
     
+    
+    <p class="lead" id="missing-items">Missing items</p>
+    <p>
+      Arrays sometimes get holes in them. For example, suppose you had this:
+    </p>
+    <pre>  var animals = new Array();
+  animals[2] = new Object();
+  animals[2].name = &quot;Cat&quot;;
+  animals[0] = new Object();
+  animals[0].name = &quot;Dog&quot;;
+  animals[1] = null;
+  showAnimals();
+  
+  function showAnimals(){
+	animals.forEach( function( animal, arrayIndex ) {
+	  console.log( &quot;Animal &quot; + arrayIndex + &quot; is &quot; + animal.name );
+	});
+  }</pre>    
+    
+    <p>
+      You'd get an error: <code>Uncaught TypeError: Cannot read 
+        property 'name' of null.</code> That's because <code>animal[1].name</code>
+        doesn't exist.          
+    </p>
+    <p>
+      Add a test in the loop, like this:
+    </p>
+    <pre>  function showAnimals(){
+	animals.forEach( function( animal, arrayIndex ) {
+          if ( animal ) {
+	      console.log( &quot;Animal &quot; + arrayIndex + &quot; is &quot; + animal.name );
+          }
+        });
+  }</pre> 
+    <p>
+      This will skip empty elements in the array.
+    </p>    
+    
+    
     <!--#include virtual="/includes/body-end.html" -->
   </body>
 </html>

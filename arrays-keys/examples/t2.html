@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div>TODO write content</div>
+    <script>
+      var animals = new Array();
+      animals[2] = new Object();
+      animals[2].name = "Cat";
+      animals[0] = new Object();
+      animals[0].name = "Dog";
+      animals[1] = null;
+      showAnimals();
+      
+      function showAnimals(){
+        animals.forEach( function( animal, arrayIndex ) {
+          if ( animal ) {
+            console.log( "Animal " + arrayIndex + " is " + animal.name ); 
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
