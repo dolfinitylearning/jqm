@@ -15,7 +15,7 @@ if (navigator.geolocation) {
         var mapOptions = {
             center: LatLng,
             zoom: 18,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.SATELLITE
         };
         var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
         var marker = new google.maps.Marker({

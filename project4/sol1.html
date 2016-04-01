@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dogs</title>
+    <meta name="viewport" content="width=device-width, initialscale=1">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        $(document).bind('mobileinit',function(){
+            $.mobile.changePage.defaults.changeHash = false;
+            $.mobile.hashListeningEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script> 
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  </head>
+  <body>
+    <div data-role="page" id="dogs">
+      <div data-role="header">
+        <h1>OU Places</h1>
+      </div>
+      <div data-role="content">
+        <div id="map"  style="width: 500px; height: 500px"></div>
+        <div id="content"></div>
+      </div>
+      <div data-role="footer">
+        <h4>&copy; Nobody</h4>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+      /**
+       * One location on campus. A rectangle defined by NW lat long, and 
+       * SE lat long
+       * @param {number} northWestLat Lat of NW corner.
+       * @param {number} northWestLong Long of NW corner.
+       * @param {number} southEastLat Lat of SE corner.
+       * @param {number} southEastLong Long of SE corner.
+       * @param {string} content HTML Content about location.
+       * @returns {Location} Location object.
+       */
+      var Location = function (
+              northWestLat,
+              northWestLong,
+              southEastLat,
+              southEastLong,
+              content) {
+        this.northWestLat = northWestLat,
+                this.northWestLong = northWestLong,
+                this.southEastLat = southEastLat,
+                this.southEastLong = southEastLong,
+                this.content = content
+      }
+
+      Location.prototype.render = function () {
+
+
+      };
+
+      /**
+       * Locations this page knows about.
+       * @type Array of Locations.
+       */
+      var locations = [
+        new Location(
+                42.672466, -83.214408,
+                42.671746, -83.213116,
+                "<h1>Elliot Hall</h1><p>Bad place</p>"
+                )
+      ];
+
+      var timerInvervalMsecs = 10000;
+
+      $(document).ready(function () {
+        if (!navigator.geolocation) {
+          $("#map").html("<p>Sorry, can't show your location.</p>");
+          return;
+        }
+        window.setInterval(controller, timerInvervalMsecs);
+        controller();
+      });
+
+      var controller = function () {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          //Get current location.
+          var currentLatLng = new google.maps.LatLng(
+            position.coords.latitude, position.coords.longitude
+          );
+          //Draw map and marker for current location.
+          var mapOptions = {
+            center: currentLatLng,
+            zoom: 18,
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+          };
+          var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+          var marker = new google.maps.Marker({
+            position: currentLatLng,
+            map: map,
+            title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + position.coords.latitude + "<br />Longitude: " + position.coords.longitude
+          });
+          //Check whether in a known location.
+          locations.forEach(function (location) {
+            if (inLocation(currentLatLng, location)) {
+              location.render();
+            }
+          });
+        }); //End getCurrentPosition.
+      }
+      
+      function inLocation( currentLatLng, location ) {
+        
+      }
+
+
+
+    </script>
+
+  </body>
+</html>
