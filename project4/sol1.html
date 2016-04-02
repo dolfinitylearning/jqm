@@ -13,7 +13,7 @@
     </script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCH5B8z04TLcdPiUf2XimlIZv99lY3o8TA"></script>
   </head>
   <body>
     <div data-role="page" id="dogs">
@@ -25,7 +25,8 @@
         <div id="content"></div>
       </div>
       <div data-role="footer">
-        <h4>&copy; Nobody</h4>
+        
+        <h4 id="test">&copy; Nobody</h4>
       </div>
     </div>
 
@@ -65,34 +66,55 @@
        */
       var locations = [
         new Location(
-                42.672466, -83.214408,
-                42.671746, -83.213116,
-                "<h1>Elliot Hall</h1><p>Bad place</p>"
+                42.672466, -83.214408, //nw
+                42.671746, -83.213116, //se
+                "<h1>Elliot Hall</h1>" +
+                "<p>Bad place</p>"
+                ), //42.672, -83.214,
+        new Location (
+                42.674719, -83.213947,
+                42.673065, -83.212150,
+                "<h1>Rec Center</h1>" +
+                "<p>Exercise and other bad things.</p>"
                 ),
         new Location(
                 42.666, -83.195,
                 42.69, -83.191,
-                "<h1>Kieran's place</h1>"
+                "<h1>Kieran's house</h1>" +
+                "<p>Doom and gloom</p>"
                 )
       ];
 
       var timerInvervalMsecs = 10000;
-
+      var testIt = false;
+      var timeoutId;
       $(document).ready(function () {
         if (!navigator.geolocation) {
           $("#map").html("<p>Sorry, can't show your location.</p>");
           return;
         }
-        //window.setInterval(controller, timerInvervalMsecs);
         controller();
+        $("#test").click(function() {
+          testIt = true;
+          controller();
+        });
       });
-
       var controller = function () {
+        //Clear timer, necessary when testing.
+        window.clearTimeout( timeoutId );
         navigator.geolocation.getCurrentPosition(function (position) {
           //Get current location.
-          var currentLatLng = new google.maps.LatLng(
-            position.coords.latitude, position.coords.longitude
-          );
+          var lat, long;
+          if ( testIt ) {
+            lat = prompt("Lat?");
+            long = prompt("Long?");
+            testIt = false;
+          }
+          else {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+          }
+          var currentLatLng = new google.maps.LatLng( lat, long );
           //Draw map and marker for current location.
           var mapOptions = {
             center: currentLatLng,
@@ -112,19 +134,15 @@
             }
           });
         }); //End getCurrentPosition.
+        //Start timer for next update.
+        timeoutId = window.setTimeout(controller, timerInvervalMsecs);
       };
       
       function inLocation( currentLatLng, location ) {
-        if (    currentLatLng.lat() >= location.northWestLat
-             && currentLatLng.lng() >= location.northWestLong
-             && currentLatLng.lat() <= location.southEastLat
-             && currentLatLng.lng() <= location.southEastLong
-            ) {
-                return true;
-            }
-            else {
-                return false;
-            }
+        return    currentLatLng.lat() <= location.northWestLat
+               && currentLatLng.lng() >= location.northWestLong
+               && currentLatLng.lat() >= location.southEastLat
+               && currentLatLng.lng() <= location.southEastLong;
       }
 
 
