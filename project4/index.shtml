@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Project 4</h1>
+    </div>
+    <p>
+      You can do your own project, or this one. 
+      You can do this project alone, or with one other human in the class. 
+    </p>
+    <p>
+      Write an app called OU Places. As you wander around campus, it shows 
+      you where you are, and tells you about that place. If it doesn't know
+      about the place, it just shows you a map with your location:
+    </p>
+    <p>  
+      <img src="screen1.png" class="img-responsive local-bordered" alt="Output">
+    </p>
+    <p>
+      If the app knows where you are, it tells you something about that location.
+      For example:
+    </p>
+    <p>
+      <img src="rec.png" class="img-responsive local-bordered" alt="Rec center">
+    </p>
+    <p>
+      <img src="eh.png" class="img-responsive local-bordered" alt="Elliott Hall">
+    </p>
+    <p>
+      I need a way to test your app. When the user clicks on the text in the
+      footer, the app asks the user for lat/long, rather than getting it 
+      from the phone:
+    </p>
+    <p>
+      <img src="test.png" class="img-responsive local-bordered" alt="Testing">
+    </p>
+    <p>
+      <strong>It's important that I can test your app by typing in lat and 
+      long for a known point. If I can't, I won't assume that your
+      code works.</strong>
+    </p>
+    <p>
+      Add at least four locations to your app. Make sure that the Rec Center and
+      Elliott Hall are among them.
+    </p>
+
+    <p>
+      Add appropriate comments in your code, as in the samples on this site.
+    </p>
+    <p>
+      Submit your URL in Moodle, with the name(s) of the human(s) who 
+      did the project.
+    </p>
+    <p>
+      If you do the basics described so far, you will get 25 out of 30. 
+      For extra points:
+    </p>
+    <ul>
+      <li>
+        Add an opening screen, giving the name of the app, and the people
+        who wrote it. With some images. And a start button, or some such. (1 point)
+      </li>
+      <li>
+        Make it look cool, with brighter colors. Try the theme roller at the
+        jQM site, or liberate an already-made theme. 
+        (2 points)
+      </li>
+      <li>
+        Add ads on each screen. Randomly choose ads from a collection (maybe an 
+        <code>Ad</code> object type?) Make whatever ads you want. 
+        Funny ads are good. (2 points)
+      </li>
+      <li>
+        Have the app speak the name of each location. (2 points)
+      </li>
+      <li>
+        Other cool things.
+      </li>
+    </ul>
+    <p>
+      Hints:
+    </p>
+    <ul>
+      <li>
+        <a href='t1.html' target="_blank">This page</a> shows a sample of the
+        Google geolocation API in action. It shows you how to get a phone's
+        current location, in lat/long.
+        Stealing is good. Also check <a 
+          href='https://developers.google.com/maps/documentation/javascript/examples/map-geolocation'
+          target="_blank">this</a>. Alos, there are 4.2 bazillion other 
+          JavaScript geolocation tutorials on
+          the InterWebs. 
+      </li>
+      <li>You can use a timer to update the map, and show appropriate content
+        about the current location. Every 10 secs is OK. 
+        This code will run the function <code>controller</code> after 
+        <code>timerInvervalMsecs</code> milliseconds:
+        <pre>timeoutId = window.setTimeout(controller, timerInvervalMsecs);</pre>
+      </li>
+      <li>
+        This code will clear a timer. Use it to stop the timer when the user is
+        testing the app, so the user can type in lat/long without being interrupted:
+        <pre>window.clearTimeout( timeoutId );</pre>
+      </li>
+      <li>
+        I used a zoom of 18 for the map options.
+      </li>
+      <li>
+        How to test whether the phone is in a known location? I created 
+        an object type called <code>Location</code>, holding data about one 
+        known location (EH, Rec Center, etc.). Each <code>Location</code> 
+        defines a rectangle for the location.
+        If the phone is in that rectangle, show content about the location. 
+        I gave <code>Location</code> five properties:
+        <ul>
+          <li>
+            Lat and long of the northwest corner of the location.
+          </li>
+          <li>
+            Lat and long of the southeast corner of the location.
+          </li>
+          <li>
+            Content describing the location.
+          </li>
+        </ul>
+      </li>
+      <li>
+        I created an array called <code>locations</code> that contained
+        <code>Location</code> objects. 
+      </li>
+      <li>
+        Here's the basic logic. When the timer goes off, show the 
+        current location, then use a ForEach to loop through 
+        <code>locations</code>. If the phone is in one of them, show the
+        location's details. Start the timer again.
+      </li>
+        
+    </ul>
+    <p>
+      Submit the URL of your page in Moodle. List the extra things you did, 
+      if any. Type the name(s) of the human(s) who did the project.
+    </p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>
