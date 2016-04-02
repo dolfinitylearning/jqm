@@ -55,7 +55,7 @@
       }
 
       Location.prototype.render = function () {
-
+          $("#content").html( this.content );
 
       };
 
@@ -68,6 +68,11 @@
                 42.672466, -83.214408,
                 42.671746, -83.213116,
                 "<h1>Elliot Hall</h1><p>Bad place</p>"
+                ),
+        new Location(
+                42.666, -83.195,
+                42.69, -83.191, 
+                "<h1>Kieran's place</h1>"
                 )
       ];
 
@@ -78,7 +83,7 @@
           $("#map").html("<p>Sorry, can't show your location.</p>");
           return;
         }
-        window.setInterval(controller, timerInvervalMsecs);
+        //window.setInterval(controller, timerInvervalMsecs);
         controller();
       });
 
@@ -107,10 +112,19 @@
             }
           });
         }); //End getCurrentPosition.
-      }
+      };
       
       function inLocation( currentLatLng, location ) {
-        
+        if (    currentLatLng.lat() >= location.northWestLat
+             && currentLatLng.lng() >= location.northWestLong
+             && currentLatLng.lat() <= location.southEastLat
+             && currentLatLng.lng() <= location.southEastLong
+            ) {
+                return true;
+            }
+            else {
+                return false;
+            }
       }
 
 
