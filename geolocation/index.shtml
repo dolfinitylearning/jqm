@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--#include virtual="/includes/head.html" -->
+  </head>
+  <body>
+    <!--#include virtual="/includes/navbar.html" -->
+    <!--#include virtual="/includes/body-start.html" -->
+    <div class="page-header">
+      <h1>Geolocation</h1>
+    </div>
+    <p>
+      Include this to get the Google library:
+    </p>
+    <pre>&lt;script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"&gt;&lt;/script&gt;</pre>
+    <p>
+      This code helps Chrome throwing some authorization-ish errors.
+    </p>
+
+    <pre>$(document).bind('mobileinit',function(){
+    $.mobile.changePage.defaults.changeHash = false;
+    $.mobile.hashListeningEnabled = false;
+    $.mobile.pushStateEnabled = false;
+});</pre>
+
+    <p>
+      Does the browser support geolocation?
+    </p>
+    <pre>if (!navigator.geolocation) {
+  alert("Sorry, can't show your location.");
+    ...</pre>
+    <p>
+      Get and map current location.
+    </p>
+    <pre>navigator.geolocation.getCurrentPosition(function (position) {
+  lat = position.coords.latitude;
+  long = position.coords.longitude;
+  var currentLatLng = new google.maps.LatLng( lat, long );
+  //Draw map and marker for current location.
+  var mapOptions = {
+    center: currentLatLng,
+    zoom: 18,
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+  };
+  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  var marker = new google.maps.Marker({
+    position: currentLatLng,
+    map: map,
+    title: "&lt;div style = 'height:60px;width:200px'&gt;Your location:&lt;br&gt;Latitude: "
+      + position.coords.latitude + "&lt;br&gt;Longitude: " + position.coords.longitude
+  });
+}); //End getCurrentPosition.
+</pre>
+    <p>
+      <a href="where-am-i.html" target="_blank">Gelocation example</a>
+    </p>
+    <p class="lead">Rectangles</p>
+    <p>
+      Write a program that does what 
+      <a href="point-in-rect.html" target="_blank">this page</a> does,
+      without looking at the code. Start with the first point and rectangle.
+    </p>
+    <p>
+      
+    </p>
+    <!--#include virtual="/includes/body-end.html" -->
+  </body>
+</html>

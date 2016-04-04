@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <title>Rectangles</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+      $(document).bind('mobileinit',function(){
+          $.mobile.changePage.defaults.changeHash = false;
+          $.mobile.hashListeningEnabled = false;
+          $.mobile.pushStateEnabled = false;
+      });
+    </script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  </head>
+  <body>
+    <div data-role="page" id="dogs">
+      <div data-role="header">
+        <h1>Rectangles</h1>
+      </div>
+      <div data-role="content">
+      </div>
+      <div data-role="footer">
+        <h4 id="test">&copy; Nobody</h4>
+      </div>
+    </div>
+    <script>
+      /**
+       * Define a class representing a point on a graph.
+       * @param {number} x
+       * @param {number} y
+       * @returns {Point} The pointy object.
+       */
+      var Point = function(x, y) {
+        this.x = x;
+        this.y = y;
+      };
+      /**
+       * Generate HTML to ahow a Point.
+       * @returns {String} HTML to show the Point.
+       */
+      Point.prototype.render = function() {
+        return "the point at " + this.x + ", " + this.y;
+      };
+      /**
+       * Define a rectangle from two points: top left, and bottom right.
+       * @param {Point} topLeft Top left of rectangle.
+       * @param {Point} bottomRight Bottom right of rectangle.
+       * @returns {Rectangle} The Retangulary object.
+       */
+      var Rectangle = function(topLeft, bottomRight) {
+        this.topLeft = topLeft;
+        this.bottomRight = bottomRight;
+      };
+      /**
+       * Generate HTML to ahow a Rectangle.
+       * @returns {String} HTML to ahow the Rectangle.
+       */
+      Rectangle.prototype.render = function() {
+        return "the rectangle from " + this.topLeft.render() 
+          + " to " + this.bottomRight.render();
+      }
+      /**
+       * Is a Point inside a Rectangle?
+       * @param {Point} point Point to check.
+       * @param {Rectangle} rectangle Rectangle to check.
+       * @returns {boolean} True if point is inside rectangle, else false.
+       */
+      Rectangle.prototype.pointInside = function(point) {
+        //Use this code...
+        if ( 
+                point.x >= this.topLeft.x 
+             && point.y >= this.topLeft.y 
+             && point.x <= this.bottomRight.x 
+             && point.y <= this.bottomRight.y 
+           ) {
+             return true;
+           }
+           else {
+             return false;
+           }
+        //...or this ...
+        return  point.x >= this.topLeft.x 
+             && point.y >= this.topLeft.y 
+             && point.x <= this.bottomRight.x 
+             && point.y <= this.bottomRight.y ;
+      };
+
+      /**
+       * Make some HTML about whether a point is in a rectangle.
+       * @param {Point} point Pointy object.
+       * @param {Recangle} rectangle Rectangulary object.
+       * @returns {String} HTML output.
+       */
+      function checkPointInRectangle(point, rectangle) {
+        return "<p>The " + point.render()
+          + (rectangle.pointInside(point) ? " is " : " is not ")
+          + "inside " + rectangle.render() + ".</p>";
+      }
+
+      var htmlOut = "";
+      //Check one rectangle and point.
+      var rectangle1 = new Rectangle(
+            new Point(1, 1),
+            new Point(10, 10)
+          );
+      var point1 = new Point(5, 5);
+      htmlOut += checkPointInRectangle(point1, rectangle1);
+      //Check lots o' points.
+      var lotsOfPoints = [
+        new Point(2, 8),
+        new Point(8, 2),
+        new Point(0, 3),
+        new Point(4, 12),
+        new Point(9, 2)
+      ];
+      lotsOfPoints.forEach(function(point){
+        htmlOut += checkPointInRectangle(point, rectangle1);
+      });
+      
+      //If you start me up, you know I'll never stop...
+      //(do, de do de do de do)
+      //You make a grown man cry...
+      //https://www.youtube.com/watch?v=SGyOaCXr8Lw
+      $(document).ready(function(){
+        $("div[data-role=content]").html(htmlOut);
+      });
+      
+    </script>
+  </body>
+</html>
